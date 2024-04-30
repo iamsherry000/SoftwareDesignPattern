@@ -12,14 +12,14 @@
         },
         {
             "type": "java",
-            "name": "Main",
+            "name": "MatchSystemMain",
             "request": "launch",
             "mainClass": "src.tw.SherryTseng.MatchSystem.Main",
             "projectName": "SoftwareDesignPattern_296490c9"
         },
         {
             "type": "java",
-            "name": "Main(1)",
+            "name": "waterballsaMain",
             "request": "launch",
             "mainClass": "src.tw.waterballsa.c2m1h1.Main",
             "projectName": "SoftwareDesignPattern_296490c9"
