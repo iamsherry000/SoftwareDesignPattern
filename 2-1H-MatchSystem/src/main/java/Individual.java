@@ -1,9 +1,44 @@
+import java.util.Set;
 
 public class Individual {
-    private int ID;
-    private int Gender; // male:0 female:1
-    private int Age;
-    private String Intro; // 0-200 characters
-    private String Habits;
-    private float Coordinate; // or array? list? 
+    private int id;
+    private boolean gender;
+    private int age;
+    private String intro;
+    private Set<String> habits;
+    private Coordinate coord;
+
+    public Individual(int id, boolean gender, int age, Set<String> habits, String intro, Coordinate coord) {
+        this.id = id;
+        this.gender = gender;
+        this.age = age;
+        this.intro = intro;
+        this.habits = habits;
+        this.coord = coord;
+    }
+
+    // Getters and setters
+    public int getId() {
+		return id;
+	}
+
+	public boolean getGender() {
+		return gender;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public Set<String> getHabits() {
+		return habits;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public Coordinate getCoord() {
+        return coord;
+	}
 }
