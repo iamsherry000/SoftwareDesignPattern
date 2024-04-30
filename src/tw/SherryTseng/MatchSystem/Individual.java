@@ -1,4 +1,4 @@
-package src.tw.SherryTseng;
+package src.tw.SherryTseng.MatchSystem;
 import java.util.Set;
 
 public class Individual {

@@ -1,4 +1,5 @@
-package src.tw.SherryTseng;
+package src.tw.SherryTseng.MatchSystem;
+
 public class Coordinate {
     private int x;
     private int y;
