@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
 
-import src.main.java.Individual;
+import tw.SherryTseng.Individual;
 
 public class Main {
     private static final String[] habits = {"dancing", "music", "boardgame", "online games", "coding", "movie", "KTV","swimming","hiking"};
