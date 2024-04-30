@@ -8,6 +8,7 @@ public class Individual {
     private String intro;
     private Set<String> habits;
     private Coordinate coord;
+    private Individual matched;
 
     public Individual(int id, boolean gender, int age, Set<String> habits, String intro, Coordinate coord) {
         this.id = id;
@@ -41,5 +42,12 @@ public class Individual {
 
 	public Coordinate getCoord() {
         return coord;
+	}
+
+    public void match(Individual matched) {
+		if (matched == this) {
+			throw new IllegalStateException("Must not match one to himself.");
+		}
+		this.matched = matched;
 	}
 }
