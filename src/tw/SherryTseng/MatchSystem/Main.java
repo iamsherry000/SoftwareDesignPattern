@@ -2,6 +2,10 @@ package src.tw.SherryTseng.MatchSystem;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import src.tw.waterballsa.c2m1h1.DistanceBasedMatching;
+import src.tw.waterballsa.c2m1h1.MatchingApp;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -12,7 +16,7 @@ public class Main {
     private static final int numbOfIndividuals = 10; 
 
     public static void main(String[] args) {
-        List<Individual> individualsList = new ArrayList<>();
+        List<Individual> individualsList = new ArrayList<>(); 
 
         for(int i = 0; i < numbOfIndividuals; i++){
             individualsList.add(new Individual(i+1, 
@@ -23,6 +27,9 @@ public class Main {
                                 getCoordinate()
                                 ));
         }
+
+        MatchingSystem system = new MatchingSystem(individualsList, new DistanceBasedMatching());
+
     }
 
     // generate random gender with 0 for male, 1 for female.
