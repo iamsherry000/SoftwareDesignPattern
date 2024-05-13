@@ -3,8 +3,7 @@ package src.tw.SherryTseng.MatchSystem;
 import java.util.HashSet;
 import java.util.Set;
 
-import src.tw.waterballsa.c2m1h1.DistanceBasedMatching;
-import src.tw.waterballsa.c2m1h1.MatchingApp;
+import src.tw.waterballsa.c2m1h1.HabitBasedMatching;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,15 @@ public class Main {
                                 ));
         }
 
-        MatchingSystem system = new MatchingSystem(individualsList, new DistanceBasedMatching());
+        MatchingSystem system = new MatchingSystem(individualsList, new src.tw.SherryTseng.MatchSystem.DistanceBasedMatching());
+        Individual individual = individualsList.get(0);
+        system.match();
+        System.out.printf("距離：%f\n", individual.getCoord().distance(individual.getMatched().getCoord()));
+
+        //system = new MatchingSystem(individualsList, new src.tw.SherryTseng.MatchSystem.HabitBasedMatching());
+        individual = individualsList.get(0);
+        system.match();
+        System.out.printf("距離：%f\n", individual.getCoord().distance(individual.getMatched().getCoord()));
 
     }
 

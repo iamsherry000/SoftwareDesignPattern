@@ -44,7 +44,11 @@ public class Individual {
         return coord;
 	}
 
-    public void match(Individual matched) {
+	public Individual getMatched() { //被別人match 
+		return matched;
+	}
+
+    public void match(Individual matched) { //match到別人
 		if (matched == this) {
 			throw new IllegalStateException("Must not match one to himself.");
 		}
