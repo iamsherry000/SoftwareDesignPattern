@@ -3,12 +3,13 @@ package src.tw.SherryTseng.MatchSystem;
 import java.util.HashSet;
 import java.util.Set;
 
-import src.tw.waterballsa.c2m1h1.HabitBasedMatching;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+
+import static src.tw.SherryTseng.MatchSystem.Utils.intersection;
+import static java.lang.String.join;
 
 public class Main {
     private static final String[] habits = {"dancing", "music", "boardgame", "online games", "coding", "movie", "KTV","swimming","hiking"};
@@ -32,11 +33,10 @@ public class Main {
         system.match();
         System.out.printf("距離：%f\n", individual.getCoord().distance(individual.getMatched().getCoord()));
 
-        //system = new MatchingSystem(individualsList, new src.tw.SherryTseng.MatchSystem.HabitBasedMatching());
+        system = new MatchingSystem(individualsList, new src.tw.SherryTseng.MatchSystem.HabitBasedMatching());
         individual = individualsList.get(0);
         system.match();
-        System.out.printf("距離：%f\n", individual.getCoord().distance(individual.getMatched().getCoord()));
-
+        System.out.printf("共同興趣：%s\n", join(", ", intersection(individual.getHabits(), individual.getMatched().getHabits())));
     }
 
     // generate random gender with 0 for male, 1 for female.
