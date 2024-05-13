@@ -1,7 +1,5 @@
 package src.tw.SherryTseng.MatchSystem;
 
-import src.tw.waterballsa.c2m1h1.Coord;
-
 public class Coordinate {
     private int x;
     private int y;
@@ -20,7 +18,7 @@ public class Coordinate {
 		return y;
 	}
 
-    public double distance(Coord coord) {
+    public double distance(Coordinate coord) {
 		int distX = Math.abs(x - coord.getX());
 		int distY = Math.abs(y - coord.getY());
 		return Math.sqrt(distX*distX + distY*distY);

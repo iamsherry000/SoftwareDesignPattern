@@ -1,7 +1,6 @@
 package src.tw.waterballsa.c2m1h1;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

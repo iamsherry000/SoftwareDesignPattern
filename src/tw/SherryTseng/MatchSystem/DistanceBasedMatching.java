@@ -1,10 +1,9 @@
 package src.tw.SherryTseng.MatchSystem;
 
 import java.util.Comparator;
+import static java.util.Comparator.*;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
-
-import java.util.Collections;
 
 public class DistanceBasedMatching implements MatchingStrategy{
     @Override
