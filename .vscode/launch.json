@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.StrategyPattern_sort.Main",
+            "projectName": "SoftwareDesignPattern_296490c9"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
