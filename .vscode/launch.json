@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
+            "mainClass": "src.tw.SherryTseng.CardGames.Main",
+            "projectName": "SoftwareDesignPattern_296490c9"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
             "mainClass": "src.tw.SherryTseng.StrategyPattern_sort.Main",
             "projectName": "SoftwareDesignPattern_296490c9"
         },
