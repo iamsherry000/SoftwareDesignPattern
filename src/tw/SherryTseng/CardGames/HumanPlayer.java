@@ -1,5 +1,6 @@
 package src.tw.SherryTseng.CardGames;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class HumanPlayer extends Player {
@@ -15,4 +16,5 @@ public class HumanPlayer extends Player {
         String playerName = scanner.nextLine();
         super.name = playerName;
     }
+
 }

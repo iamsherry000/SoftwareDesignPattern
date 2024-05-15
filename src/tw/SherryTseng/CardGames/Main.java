@@ -19,6 +19,6 @@ public class Main {
         }
 
         game.start();
-        game.initialDeck();
+        
     }
 }

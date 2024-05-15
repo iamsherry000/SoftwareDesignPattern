@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Game {
-    private List<Player> playerList; // stored all the player
+    protected List<Player> playerList; // stored all the player
+    protected Deck deck; 
     private static int PLAYERNUM = 4; // The total number of player
 
     public Game() {
@@ -13,6 +14,8 @@ public abstract class Game {
 
     public void start() {
         initialPlayer();
+        initialDeck();
+        drawCards();
     }
 
     public void initialPlayer() {
@@ -33,5 +36,6 @@ public abstract class Game {
 
     public abstract void initialDeck(); 
 
-    public abstract void drawCard();
+    public abstract void drawCards();
+
 }
