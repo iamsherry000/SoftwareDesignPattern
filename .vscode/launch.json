@@ -9,6 +9,20 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "src.tw.SherryTseng.CardGames.Main",
+            "projectName": "SoftwareDesignPattern_3d194dc5"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.TemplateMethod_drink.Main",
+            "projectName": "SoftwareDesignPattern_3d194dc5"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.CardGames.Main",
             "projectName": "SoftwareDesignPattern_296490c9"
         },
         {

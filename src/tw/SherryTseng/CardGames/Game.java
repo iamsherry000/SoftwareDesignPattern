@@ -1,15 +1,37 @@
 package src.tw.SherryTseng.CardGames;
 
-public class Game {
-    
+import java.util.ArrayList;
+import java.util.List;
 
-    public static void start(){
-        playerNameHimself();
+public abstract class Game {
+    private List<Player> playerList; // stored all the player
+    private static int PLAYERNUM = 4; // The total number of player
+
+    public Game() {
+        this.playerList = new ArrayList<>(); 
     }
 
-    public static void playerNameHimself() {
-        HumanPlayer p1 = new HumanPlayer();
-        String p1Name = p1.nameHimself();
-        System.out.println(p1Name);
+    public void start() {
+        initialPlayer();
     }
+
+    public void initialPlayer() {
+        System.out.println("Intializing the player");
+        for(int i = 0; i < PLAYERNUM; i++) {
+            if (i == 0) {
+                HumanPlayer humanPlayer = new HumanPlayer("");
+                humanPlayer.nameHimself();
+                playerList.add(humanPlayer);
+            } else {
+                AIPlayer aiPlayer = new AIPlayer();
+                aiPlayer.nameHimself();
+                playerList.add(aiPlayer);
+            }
+            System.out.println("Player " + (i+1) + ": " + playerList.get(i).getName()); 
+        }
+    }
+
+    public abstract void initialDeck(); 
+
+    public abstract void drawCard();
 }
