@@ -16,6 +16,7 @@ public abstract class Game {
         initialPlayer();
         initialDeck();
         drawCards();
+        takeTurn();
     }
 
     public void initialPlayer() {
@@ -37,5 +38,7 @@ public abstract class Game {
     public abstract void initialDeck(); 
 
     public abstract void drawCards();
+
+    public abstract void takeTurn();
 
 }

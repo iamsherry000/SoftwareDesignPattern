@@ -63,4 +63,12 @@ public class UnoGame extends Game {
         }
     }
 
+    @Override
+    public void takeTurn() {
+        // Card tableCard = tableCardList.remove(0);
+        // p1 - p4 take turn, 
+            // if player.hand have no same color with tableCard.getColor, drawOneCard;
+        // getFinalWinner if player.hand = empty 
+    }
+
 }

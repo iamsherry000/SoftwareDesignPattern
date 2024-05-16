@@ -63,4 +63,71 @@ public class ShowdownGame extends Game{
             System.out.println();
         }
     }
+
+    @Override
+    public void takeTurn() {
+        // in the next 13 rounds 
+        for (int round = 1; round <= 13; round++) {
+            System.out.println("Round " + round + " begins:");
+            List<Card> playedCards = new ArrayList<>();
+
+            for (Player player : playerList) {
+                Card playedCard = player.playCard();
+                System.out.println(player.getName() + " plays: " + playedCard.getSuit() + " " + playedCard.getRank() + " in round:" + round);
+                playedCards.add(playedCard);
+            }
+    
+            Player roundWinner = determineRoundWinner(playedCards);
+            System.out.println("Round " + round + " winner: " + roundWinner.getName());
+            roundWinner.addPoint();        
+        }
+
+        Player overallWinner = determineOverallWinner();
+        System.out.println("Final Winner " + overallWinner.getName());
+    }
+
+    private Player determineRoundWinner(List<Card> playedCards) {
+        Player roundWinner = null;
+        Card winningCard = null;
+    
+        for (int i = 0; i < playedCards.size(); i++) {
+            Card playedCard = playedCards.get(i);
+            if (winningCard == null || isCardHigher(playedCard, winningCard)) {
+                winningCard = playedCard;
+                roundWinner = playerList.get(i); 
+            }
+        }
+    
+        return roundWinner;
+    }
+    
+
+    private boolean isCardHigher(Card card1, Card card2) {
+        // 比較牌的階級
+        int rankComparison = card1.getRank().compareTo(card2.getRank());
+        if (rankComparison > 0) {
+            return true; // card1的階級比較高
+        } else if (rankComparison < 0) {
+            return false; // card2的階級比較高
+        } else {
+            // 階級相同，比較花色
+            int suitComparison = card1.getSuit().compareTo(card2.getSuit());
+            return suitComparison > 0; // 如果花色比較大，則card1勝出
+        }
+    }
+
+    private Player determineOverallWinner() {
+        Player overallWinner = null;
+        int maxPoints = Integer.MIN_VALUE;
+    
+        for (Player player : playerList) {
+            int playerPoints = player.getTotalPoints();
+            if (playerPoints > maxPoints) {
+                maxPoints = playerPoints;
+                overallWinner = player;
+            }
+        }
+    
+        return overallWinner;
+    }
 }
