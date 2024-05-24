@@ -51,8 +51,12 @@ public class World {
     void initCollisionHandlers() {
         CollisionHandler sameHandler = new SameHandler(this);
         CollisionHandler fireWaterHandler = new FireWaterHandler(this);
+        CollisionHandler heroFireHandler = new HeroFireHandler(this);
+        CollisionHandler heroWaterHandler = new HeroWaterHandler(this);
 
         sameHandler.setNextHandler(fireWaterHandler);
+        fireWaterHandler.setNextHandler(heroFireHandler);
+        heroFireHandler.setNextHandler(heroWaterHandler);
         COR_handler = sameHandler;
     }
 
