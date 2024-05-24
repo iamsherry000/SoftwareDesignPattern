@@ -8,8 +8,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         world.initWorld();
-        // world.printSprites(); 
-        world.printSpritesLocations();
+        world.printSprites(); 
+        // world.printSpritesLocations();
 
         while (true) {
             try {
@@ -19,14 +19,14 @@ public class Main {
 
                 // To make sure the sprite on the location
                 Sprite sprite1 = world.getSpriteAt(x1);
-                Sprite sprite2 = world.getSpriteAt(x2);
+                Sprite sprite2 = world.getSpriteAt(x2); 
+                
+                world.move(x1, x2);
+                world.printSprites(); 
 
-                System.out.println((sprite1 != null ? sprite1 : "Choose another one"));
-                System.out.println((sprite2 != null ? sprite2 : "None"));
-
-                // world.move(x1, x2);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
+                scanner.next();
             }
         }
 

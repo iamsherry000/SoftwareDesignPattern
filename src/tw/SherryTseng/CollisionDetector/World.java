@@ -11,41 +11,20 @@ public class World {
     private List<Sprite> sprites;
     private int SPRITENUM = 10;
     private static final int WORLDSIZE = 30;
+    private CollisionHandler COR_handler;
 
     public World() {
         sprites = new ArrayList<>();
         initWorld();
+        initCollisionHandlers();
     }
 
     void initWorld() {
         Random rand = new Random();
         Set<Integer> usedLocations = new HashSet<>();
 
-        // 會重複
-        // for (int i = 0 ; i < SPRITENUM; i++) {
-        //     int location = rand.nextInt(WORLDSIZE);
-        //     // if (usedLocations.contains(location)) {
-        //     //     continue; // Skip this iteration if location is already used
-        //     // }
-        //     do {
-        //         location = rand.nextInt(WORLDSIZE);
-        //     } while (usedLocations.contains(location)); 
-        //     usedLocations.add(location);
-
-        //     int type = rand.nextInt(3);
-
-        //     switch (type) {
-        //         case 0:
-        //             sprites.add(new Hero(location));
-        //             break;
-        //         case 1:
-        //             sprites.add(new Water(location));
-        //             break;
-        //         case 2:
-        //             sprites.add(new Fire(location));
-        //             break;
-        //     }
-        // }
+        // 會重複 location 
+        // for (int i = 0 ; i < SPRITENUM; i++) {}
 
         while (sprites.size() < SPRITENUM) {
             int location = rand.nextInt(WORLDSIZE);
@@ -67,6 +46,14 @@ public class World {
                     break;
             }
         }
+    }
+
+    void initCollisionHandlers() {
+        CollisionHandler sameHandler = new SameHandler(this);
+        CollisionHandler fireWaterHandler = new FireWaterHandler(this);
+
+        sameHandler.setNextHandler(fireWaterHandler);
+        COR_handler = sameHandler;
     }
 
     public void printSprites() {
@@ -92,6 +79,11 @@ public class World {
         return null;
     }
 
+    public void removeSprite(Sprite sprite) {
+        sprites.remove(sprite);
+        //world.printSprites();
+    }
+
     // public void move(int x1, int x2) {
     //     Sprite sprite1 = getSpriteAt(x1);
     //     Sprite sprite2 = getSpriteAt(x2);
@@ -102,4 +94,15 @@ public class World {
     //     }
     // }
 
+    public void move(int x1, int x2) {
+        Sprite sprite1 = getSpriteAt(x1);
+        Sprite sprite2 = getSpriteAt(x2);
+
+        if (sprite1 != null && sprite2 != null) {
+            COR_handler.handleCollision(sprite1, sprite2);
+        } else if (sprite1 != null) {
+            sprite1.location = x2;
+        }
+    }
+    
 }
