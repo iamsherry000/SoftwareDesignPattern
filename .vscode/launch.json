@@ -1,0 +1,77 @@
+{
+    // 使用 IntelliSense 以得知可用的屬性。
+    // 暫留以檢視現有屬性的描述。
+    // 如需詳細資訊，請瀏覽: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.BigTwo.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "ChainOfResponsibilityPattern",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.COR_handler.ChainOfResponsibilityPattern",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(1)",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.CardGames.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(2)",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.CollisionDetector.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(3)",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.MatchSystem.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(4)",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.ObserverPattern_pts.src.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(5)",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.StrategyPattern_sort.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(6)",
+            "request": "launch",
+            "mainClass": "src.tw.SherryTseng.TemplateMethod_drink.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        },
+        {
+            "type": "java",
+            "name": "Main(7)",
+            "request": "launch",
+            "mainClass": "src.tw.waterballsa.c2m1h1.Main",
+            "projectName": "SoftwareDesignPattern_c85532fa"
+        }
+    ]
+}
