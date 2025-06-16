@@ -1,4 +1,4 @@
-package TemplateMethod.common;
+package TemplateMethod.example.common;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;

@@ -1,14 +1,15 @@
-package TemplateMethod;
+package TemplateMethod.example;
 
-import TemplateMethod.common.Group;
-import TemplateMethod.common.Student;
+import TemplateMethod.example.common.GroupingStrategy;
+import TemplateMethod.example.common.Group;
+import TemplateMethod.example.common.Student;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class CutBasedGroupingStrategy {
+public abstract class CutBasedGroupingStrategy implements GroupingStrategy {
     public final int GROUP_MIN_SIZE;
 
     protected CutBasedGroupingStrategy(int groupMinSize) {
@@ -32,6 +33,7 @@ public abstract class CutBasedGroupingStrategy {
             if (!group.containsKey(key)) {
                 group.put(key, new Group());
             }
+            group.get(key).addStudent(student);
         }
         return new ArrayList<>(group.values());
     }

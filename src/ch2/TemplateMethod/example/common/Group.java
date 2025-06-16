@@ -1,4 +1,4 @@
-package TemplateMethod.common;
+package TemplateMethod.example.common;
 
 import java.util.ArrayList;
 import java.util.List;
