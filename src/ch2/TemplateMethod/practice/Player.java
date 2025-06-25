@@ -18,14 +18,5 @@ public class Player {
         this.name = name;
     }
 
-    public void setHumanNumber() {
-        System.out.println("Please input your human number: ");
-        Scanner scanner = new Scanner(System.in);
-        while (!scanner.hasNextInt()) {
-            System.out.println("Invalid input, please enter an integer.");
-            scanner.next(); // skip invalid
-        }
-        int number = scanner.nextInt();
-        // createHumanPlayer(number);
-    }
+
 }
