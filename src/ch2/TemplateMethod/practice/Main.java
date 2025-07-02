@@ -1,17 +1,28 @@
 package TemplateMethod.practice;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        PokerCard c1 = new PokerCard(Rank.ACE, Suit.SPADE);
-        PokerCard c2 = new PokerCard(Rank.TEN, Suit.HEART);
-        PokerCard c3 = new PokerCard(Rank.TEN, Suit.CLUB);
-        UnoCard c4 = new UnoCard(UnoColor.BLUE, 12);
-        UnoCard c5 = new UnoCard(UnoColor.BLUE, 14);
-
-        System.out.println(c1);
-        System.out.println(c2);
-        System.out.println(c3);
-        System.out.println(c4);
-        System.out.println(c5);
+        Game game = null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=== Welcome Welcome ===");
+        System.out.println("How many human players? (0-4)");
+        int humanCount = scanner.nextInt();
+        scanner.nextLine(); // 吃掉換行
+        System.out.println("Now choose! 1. ShowDown Game 2. Uno Game");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        if(choice == 1) {
+            game = new ShowDownGame(humanCount);
+        }
+        else if(choice == 2) {
+            game = new UnoGame(humanCount);
+        } else {
+            System.out.println("Invalid choice. Exiting.");
+            return;
+        }
+        game.startGame();
+        System.out.println("=== Game Over! ===");
     }
 }

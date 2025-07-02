@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    private final List<Card> cards = new ArrayList<>();
-    private final int maxSize;
+    protected final List<Card> cards = new ArrayList<>();
+    protected int maxSize;
+
+    public Hand() {
+        this.maxSize = -1; // 無上限
+    }
 
     public Hand(int maxSize) {
         this.maxSize = maxSize;
     }
 
     public void add(Card card) {
-        if(cards.size() >= maxSize) {
+        if (maxSize > 0 && cards.size() >= maxSize) {
             throw new IllegalStateException("Hand is full.");
         }
         cards.add(card);
@@ -49,6 +53,12 @@ public class Hand {
             }
         }
         return result;
+    }
+
+    public void remove(Card card) {
+        if (!cards.remove(card)) {
+            throw new IllegalArgumentException("Card not found in hand: " + card);
+        }
     }
 
     @Override

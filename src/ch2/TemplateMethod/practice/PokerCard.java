@@ -1,6 +1,6 @@
 package TemplateMethod.practice;
 
-public class PokerCard extends Card {
+public class PokerCard extends Card implements Comparable<PokerCard>{
     private final Rank rank; // 2~10, J, Q, K, A
     private final Suit suit; // Club, Diamond, Heart, Spade
 
@@ -55,5 +55,12 @@ public class PokerCard extends Card {
     @Override
     public boolean canPlayOn(Card topCard) {
         return false; // 撲克牌比大小，不是依照這個邏輯出牌
+    }
+
+    public int compareTo(PokerCard other) {
+        if (this.rank.getValue() != other.rank.getValue()) {
+            return Integer.compare(this.rank.getValue(), other.rank.getValue());
+        }
+        return this.suit.ordinal() - other.suit.ordinal();
     }
 }

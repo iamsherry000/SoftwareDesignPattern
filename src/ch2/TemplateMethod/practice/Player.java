@@ -1,22 +1,45 @@
 package TemplateMethod.practice;
 
+import java.util.List;
 import java.util.Scanner;
 
-public class Player {
-    String name;
-    // Hand hand;
+public abstract class Player {
+    protected String name;
+    protected Hand hand;
 
     public Player() {
-        setName();
+        this.hand = new Hand();
+    } // UNO 用 new HumanPlayer()，Poker 用 new HumanPlayer(13)
+
+    // for Poker
+    public Player(int handMaxSize) {
+        this.hand = new Hand(handMaxSize);
     }
 
-    private String getName() {
+    String getName() {
         return name;
     }
 
-    private void setName() {
-        this.name = name;
+    public abstract void setName();
+
+    public Hand getHand() {
+        return hand;
     }
 
+    public void draw(Deck deck){
+        Card card = deck.draw();
+        if(card != null) {
+            hand.add(card);
+        } else {
+            System.out.println("No more cards in the deck.");
+        }
+    }
 
+    // 出牌邏輯由子類實作（Human/AIPlayer、各遊戲規則不同)
+    public abstract Card takeTurn(List<Card> playableCards);
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

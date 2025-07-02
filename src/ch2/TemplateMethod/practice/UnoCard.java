@@ -24,7 +24,10 @@ public class UnoCard extends Card{
 
     @Override
     public boolean canPlayOn(Card topCard) {
-        if (!(topCard instanceof UnoCard other)) return false;
-        return this.color == other.color || this.number == other.number;
+        if (!(topCard instanceof UnoCard)) return false;
+        UnoCard top = (UnoCard) topCard;
+        return this.color == top.color || this.number == top.number;
     }
+
+
 }
