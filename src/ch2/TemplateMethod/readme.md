@@ -5,7 +5,8 @@ Forces are
 1. Behavioural Variation (code duplication)
 2. Maintainability and Extensibility
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/09adb070-a181-40d9-977c-f76c54adc316)
+
 
 ## Homework practice
 Firstly user choose how many human players and name them, AI got its own name.
