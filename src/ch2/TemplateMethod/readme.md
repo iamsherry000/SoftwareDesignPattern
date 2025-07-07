@@ -4,6 +4,9 @@ The routine is predefined in the main function, the differences is hidden in the
 Forces are 
 1. Behavioural Variation (code duplication)
 2. Maintainability and Extensibility
+
+![Uploading image.png…]()
+
 ## Homework practice
 Firstly user choose how many human players and name them, AI got its own name.
 Secondly choose the game they want to play.
