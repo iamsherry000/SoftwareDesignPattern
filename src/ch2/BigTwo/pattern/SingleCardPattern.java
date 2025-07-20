@@ -1,8 +1,6 @@
 package BigTwo.pattern;
 
 import BigTwo.model.Card;
-import BigTwo.pattern.CompareStrategy;
-import BigTwo.pattern.SingleCompareStrategy;
 import java.util.List;
 
 public class SingleCardPattern implements CardPattern{

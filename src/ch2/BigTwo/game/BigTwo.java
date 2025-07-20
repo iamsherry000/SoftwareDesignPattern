@@ -1,9 +1,9 @@
 package BigTwo.game;
 
-import BigTwo.model.Player;
-import BigTwo.model.Deck;
-import BigTwo.model.Card;
 import java.util.Scanner;
+import BigTwo.model.*;
+import BigTwo.pattern.*;
+
 
 public class BigTwo {
     public static void main(String[] args) {
@@ -67,5 +67,15 @@ public class BigTwo {
         return firstPlayerIndex;
     }
 
+    public static void setHandlerChain() {
+        PatternHandler single = new SingleHandler();
+        PatternHandler pair = new PairHandler();
+        //PatternHandler straight = new StraightHandler();
+        //PatternHandler fullHouse = new FullHouseHandler();
+
+        single.setNext(pair);
+        //pair.setNext(straight);
+        //straight.setNext(fullHouse);
+    }
 
 }
