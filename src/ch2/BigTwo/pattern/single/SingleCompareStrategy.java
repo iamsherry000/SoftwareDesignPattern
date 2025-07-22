@@ -1,8 +1,10 @@
-package BigTwo.pattern;
+package BigTwo.pattern.single;
 
 import BigTwo.model.Card;
+import BigTwo.pattern.CardPattern;
+import BigTwo.pattern.CompareStrategy;
 
-public class SingleCompareStrategy implements CompareStrategy{
+public class SingleCompareStrategy implements CompareStrategy {
     @Override
     public boolean isGreater(CardPattern pattern1, CardPattern pattern2) {
         // 確保兩邊都是 SingleCardPattern

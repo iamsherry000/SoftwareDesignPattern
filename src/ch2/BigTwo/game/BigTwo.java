@@ -3,6 +3,10 @@ package BigTwo.game;
 import java.util.Scanner;
 import BigTwo.model.*;
 import BigTwo.pattern.*;
+import BigTwo.pattern.pair.PairHandler;
+import BigTwo.pattern.single.SingleHandler;
+import BigTwo.pattern.straight.StraightHandler;
+// import BigTwo.pattern.fullhouse.FullHouseHandler;
 
 
 public class BigTwo {
@@ -70,11 +74,11 @@ public class BigTwo {
     public static void setHandlerChain() {
         PatternHandler single = new SingleHandler();
         PatternHandler pair = new PairHandler();
-        //PatternHandler straight = new StraightHandler();
+        PatternHandler straight = new StraightHandler();
         //PatternHandler fullHouse = new FullHouseHandler();
 
         single.setNext(pair);
-        //pair.setNext(straight);
+        pair.setNext(straight);
         //straight.setNext(fullHouse);
     }
 

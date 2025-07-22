@@ -2,9 +2,9 @@ package BigTwo.test;
 
 import BigTwo.model.Card;
 import BigTwo.pattern.CardPattern;
-import BigTwo.pattern.SingleCardPattern;
-import BigTwo.pattern.SingleCompareStrategy;
-import BigTwo.pattern.SingleHandler;
+import BigTwo.pattern.single.SingleCardPattern;
+import BigTwo.pattern.single.SingleCompareStrategy;
+import BigTwo.pattern.single.SingleHandler;
 
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;

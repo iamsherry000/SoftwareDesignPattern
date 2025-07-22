@@ -1,5 +1,7 @@
 package BigTwo.test;
 
+import BigTwo.pattern.pair.PairCardPattern;
+import BigTwo.pattern.pair.PairHandler;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;

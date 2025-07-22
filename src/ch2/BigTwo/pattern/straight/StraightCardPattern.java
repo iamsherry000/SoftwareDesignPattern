@@ -1,15 +1,18 @@
-package BigTwo.pattern;
+package BigTwo.pattern.straight;
 
 import BigTwo.model.Card;
+import BigTwo.pattern.CardPattern;
+import BigTwo.pattern.CompareStrategy;
+
 import java.util.List;
 
-public class PairCardPattern implements CardPattern{
+public class StraightCardPattern implements CardPattern{
     private final List<Card> cards;
     private final CompareStrategy compareStrategy;
 
-    public PairCardPattern(List<Card> cards) {
+    public StraightCardPattern(List<Card> cards) {
         this.cards = cards;
-        this.compareStrategy = new PairCompareStrategy();
+        this.compareStrategy = new StraightCompareStrategy();
     }
 
     @Override

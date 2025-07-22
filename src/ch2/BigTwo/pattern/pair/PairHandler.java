@@ -1,6 +1,10 @@
-package BigTwo.pattern;
+package BigTwo.pattern.pair;
 
 import BigTwo.model.Card;
+import BigTwo.pattern.CardPattern;
+import BigTwo.pattern.PatternHandler;
+import BigTwo.pattern.CardPatternUtil;
+
 import java.util.List;
 
 public class PairHandler implements PatternHandler {
@@ -11,7 +15,7 @@ public class PairHandler implements PatternHandler {
     }
 
     public CardPattern recognize(List<Card> cards) {
-        if (cards.size() == 2 && cards.get(0).getRank() == cards.get(1).getRank()) {
+        if (CardPatternUtil.isPair(cards)) {
             return new PairCardPattern(cards); // 包裝起來
         } else if (next != null) {
             return next.recognize(cards);
