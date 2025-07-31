@@ -6,7 +6,7 @@ import BigTwo.pattern.*;
 import BigTwo.pattern.pair.PairHandler;
 import BigTwo.pattern.single.SingleHandler;
 import BigTwo.pattern.straight.StraightHandler;
-// import BigTwo.pattern.fullhouse.FullHouseHandler;
+import BigTwo.pattern.fullHouse.FullHouseHandler;
 
 
 public class BigTwo {
@@ -15,6 +15,9 @@ public class BigTwo {
         Player[] players = new Player[PLAYER_LENGTH];
         Deck deck = new Deck();
         int firstPlayerIndex = -1;
+        CardPattern topPlayPattern = null;
+        int passCount = 0;
+        boolean isGameOver = false;
 
         // askPlayerName(PLAYER_LENGTH, players);
         defaultPlayerName(players);
@@ -22,16 +25,29 @@ public class BigTwo {
         /// -- Game start --
         System.out.println("Welcome to Big Two!");
         deck.shuffle();
-        playerGetCards(players, deck);
-        firstPlayerIndex = findFirstPlayer(players);
+        playerGetCards(players, deck); // 發牌
+        firstPlayerIndex = findFirstPlayer(players); // 找出第一個玩家
+        System.out.println(firstPlayerIndex + " is the first player");
 
         /// -- Game loop --
-        // Player play cards (start from the first player)
-            // choose cards to play
-        // compare to current cards
-            // if valid, play the cards
-            // if not valid, pass
-        //
+        while(!isGameOver) {
+            Player currentPlayer = players[firstPlayerIndex];
+            System.out.println("Current player: " + currentPlayer.getName());
+            System.out.println("Your hand: " + currentPlayer.getHand());
+
+            // check if the player has cards to play
+            if (currentPlayer.getHand().isEmpty()) {
+                System.out.println(currentPlayer.getName() + " has no cards left!");
+                isGameOver = true;
+                break;
+            }
+
+            // ask player to play or pass
+            System.out.println("Please enter your play (or type 'pass' to pass):");
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine().trim();
+
+        }
     }
 
     public static void askPlayerName(Player[] players) {
@@ -75,11 +91,11 @@ public class BigTwo {
         PatternHandler single = new SingleHandler();
         PatternHandler pair = new PairHandler();
         PatternHandler straight = new StraightHandler();
-        //PatternHandler fullHouse = new FullHouseHandler();
+        PatternHandler fullHouse = new FullHouseHandler();
 
         single.setNext(pair);
         pair.setNext(straight);
-        //straight.setNext(fullHouse);
+        straight.setNext(fullHouse);
     }
 
 }

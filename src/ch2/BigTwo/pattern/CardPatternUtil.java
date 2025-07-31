@@ -18,4 +18,18 @@ public class CardPatternUtil {
         }
         return true;
     }
+
+    public static boolean isFullHouse(List<Card> cards) {
+        if (cards.size() != 5) return false;
+        int[] rankCount = new int[13]; // 0-12 for 2-A
+        for (Card card : cards) {
+            rankCount[card.getRank()]++;
+        }
+        boolean hasThree = false, hasTwo = false;
+        for (int count : rankCount) {
+            if (count == 3) hasThree = true;
+            if (count == 2) hasTwo = true;
+        }
+        return hasThree && hasTwo;
+    }
 }
