@@ -23,4 +23,24 @@ public class Hand {
     public boolean isEmpty() {
         return cards.isEmpty();
     }
+
+    public List<Card> getOrderedHand() {
+        cards.sort((c1, c2) -> {
+            if (c1.getRank() != c2.getRank()) {
+                return Integer.compare(c1.getRank(), c2.getRank());
+            } else {
+                return Integer.compare(c1.getSuit(), c2.getSuit());
+            }
+        });
+        return cards;
+    }
+
+    public Card getCard(int index) {
+        if (index >= 0 && index < cards.size()) {
+            return cards.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("Out of index：" + index);
+        }
+    }
+
 }

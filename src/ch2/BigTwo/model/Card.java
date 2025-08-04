@@ -35,9 +35,11 @@ public class Card {
     }
 
     public String toString() {
-        String[] suits = {"♣", "♦", "♥", "♠"};
+        // String[] suits = {"♣", "♦", "♥", "♠"};
+        String[] suits = {"C", "D", "H", "S"};
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        return ranks[rank] + suits[suit];
+        //return ranks[rank] + suits[suit];
+        return suits[suit] + "[" + ranks[rank] + "]";
     }
 
     // Card.java

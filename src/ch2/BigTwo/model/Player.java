@@ -1,5 +1,7 @@
 package BigTwo.model;
 
+import java.util.List;
+
 public class Player {
     private String name;
     private Hand hand = new Hand();
@@ -13,6 +15,7 @@ public class Player {
     }
 
     public Hand getHand() {
+        hand.getOrderedHand();
         return hand;
     }
 
@@ -22,5 +25,10 @@ public class Player {
 
     public boolean hasCard(Card card) {
         return hand.contains(card);
+    }
+
+    public List<Card> playCards() {
+        List<Card> playedCards = hand.getOrderedHand();
+        return playedCards;
     }
 }
