@@ -15,58 +15,62 @@ public class BigTwo {
         int PLAYER_LENGTH = 4;
         Player[] players = new Player[PLAYER_LENGTH];
         Deck deck = new Deck();
-        int firstPlayerIndex = -1;
+        PatternHandler handlerChain = setHandlerChain();
+
+        // askPlayerName(players); // 讓玩家輸入名字
+        defaultPlayerName(players); // 讓玩家default名字(測試)
+        deck.shuffle();// 洗牌
+        playerGetCards(players, deck);// 發牌
+
+        int firstPlayerIndex = findFirstPlayer(players);
+        int currentPlayerIndex = firstPlayerIndex;
         CardPattern topPlayPattern = null;
         int passCount = 0;
         boolean isGameOver = false;
-        PatternHandler handlerChain = setHandlerChain();
+        boolean isFirstRound = true;
 
-        // askPlayerName(players);
-        defaultPlayerName(players); // 測試用
-
-        /// -- Game start --
         System.out.println("Welcome to Big Two!");
-        deck.shuffle(); // 洗牌
-        playerGetCards(players, deck); // 發牌
-        firstPlayerIndex = findFirstPlayer(players);
-        int currentPlayerIndex = firstPlayerIndex;
 
-//        while(!isGameOver) {
-//            Player currentPlayer = players[currentPlayerIndex];
-//            printCurrentHand(currentPlayer); // 輪到每一位玩家，輸出手牌
-//
-//        }
+        while (!isGameOver) {
+            Player currentPlayer = players[currentPlayerIndex]; // Get the current player
+            System.out.println("輪到" + currentPlayer.getName() + "了");
+            printCurrentHand(currentPlayer); // Print the player's hand
 
-        Player currentPlayer = players[currentPlayerIndex];
-        printCurrentHand(currentPlayer); // 輪到每一位玩家，輸出手牌
-        System.out.print("(Space needed) Play cards: ");
-        List<Card> playedCards = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-        String[] inputIndexes = sc.nextLine().trim().split("\\s+");
-        for (String input : inputIndexes) { // 讀取所有輸入
-            int index = Integer.parseInt(input);
-            playedCards.add(currentPlayer.getHand().getCard(index));
+            boolean validMove = false; // Track if the player made a valid move
+            while (!validMove) {
+                String input = getPlayerInput(currentPlayer, topPlayPattern);
+                if (input.equalsIgnoreCase("pass")) {
+                    if (handlePass(currentPlayer, topPlayPattern)) {
+                        passCount++;
+                        validMove = true; // Allow the player to pass
+                    }
+                } else {
+                    List<Card> playedCards = parsePlayedCards(input, currentPlayer);
+                    if (playedCards != null) {
+                        CardPattern currentPattern = handlerChain.recognize(playedCards);
+                        if (handlePlay(currentPlayer, playedCards, currentPattern, topPlayPattern, isFirstRound)) {
+                            isFirstRound = false;
+                            topPlayPattern = currentPattern;
+                            passCount = 0;
+                            validMove = true; // Valid play, exit the loop
+                        }
+                    }
+                }
+            }
+
+            if (currentPlayer.getHand().isEmpty()) {
+                System.out.println("遊戲結束，遊戲的勝利者為 " + currentPlayer.getName());
+                isGameOver = true;
+            } else if (passCount == PLAYER_LENGTH - 1) {
+                // 三人 PASS，回合重啟
+                System.out.println("新的回合開始了。");
+                topPlayPattern = null;
+                passCount = 0;
+                isFirstRound = false;
+            }
+
+            currentPlayerIndex = (currentPlayerIndex + 1) % PLAYER_LENGTH; // Move to the next player
         }
-        // Todo : 考慮 input pass
-
-//        // print every card in playedCards
-//        for (Card card : playedCards) {
-//            System.out.print(card + " ");  // 預設 toString 格式為 S[3] H[4] 等
-//        }
-//        System.out.println(); // 換行
-
-        // requirement 玩家 <玩家的名字> 打出了 <牌型名稱> <花色>[<數字>] <花色>[<數字>] <花色>[<數字>] ...
-        CardPattern currentPattern = handlerChain.recognize(playedCards);
-        System.out.println("Player " + currentPlayer.getName() + " 打出了 "
-                + getPatternName(currentPattern) + " "
-                + playedCards.stream()
-                .map(Card::toString)
-                .reduce((a, b) -> a + " " + b)
-                .orElse(""));
-
-        // 判斷牌型是否符合規則
-
-
     }
 
     private static void askPlayerName(Player[] players) {
@@ -95,11 +99,11 @@ public class BigTwo {
 
     private static int findFirstPlayer(Player[] players) {
         int firstPlayerIndex = -1;
-        Card club3 = new Card(0, 2);
+        Card club3 = new Card(0, 0);
         for (int i = 0; i < players.length; i++) {
             if (players[i].hasCard(club3)) { // club3 is represented as suit 0, rank 2
                 firstPlayerIndex = i;
-                System.out.println(players[i].getName() + " has club3!");
+                // System.out.println(players[i].getName() + " has club3!");
                 break;
             }
         }
@@ -144,5 +148,66 @@ public class BigTwo {
             case "FullHouseCardPattern" -> "葫蘆";
             default -> "未知牌型";
         };
+    }
+
+    private static String getPlayerInput(Player currentPlayer, CardPattern topPlayPattern) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(topPlayPattern == null ? "(Space needed) Play cards: " : "(Space needed) Play cards or pass: ");
+        return sc.nextLine().trim();
+    }
+
+    private static boolean handlePass(Player player, CardPattern topPlayPattern) {
+        if (topPlayPattern == null) {
+            System.out.println("你不能在新的回合中喊 PASS");
+            return false;
+        }
+        System.out.println("玩家 " + player.getName() + " PASS.");
+        return true;
+    }
+
+    private static List<Card> parsePlayedCards(String input, Player player) {
+        try {
+            List<Card> playedCards = new ArrayList<>();
+            String[] inputIndexes = input.split("\\s+");
+            for (String index : inputIndexes) {
+                playedCards.add(player.getHand().getCard(Integer.parseInt(index)));
+            }
+            return playedCards;
+        } catch (Exception e) {
+            System.out.println("此牌型不合法，請再嘗試一次。");
+            return null;
+        }
+    }
+
+    private static boolean handlePlay(Player player, List<Card> playedCards, CardPattern currentPattern, CardPattern topPlayPattern, boolean isFirstRound) {
+        Card club3 = new Card(0, 0); // Club 3 is represented as suit 0, rank 2
+
+        if (currentPattern == null) {
+            System.out.println("此牌型不合法，請再嘗試一次。");
+            return false;
+        }
+
+        // Check if it's the first round and the played cards contain Club 3
+        if (isFirstRound && playedCards.stream().noneMatch(card -> card.equals(club3))) {
+            System.out.println("第一輪必須包含梅花三，請再嘗試一次。");
+            return false;
+        }
+
+        if (topPlayPattern == null || currentPattern.isGreaterThan(topPlayPattern)) {
+            List<Card> sortedCards = currentPattern.getCards();
+
+            String patternName = getPatternName(currentPattern);
+            String cardsStr = sortedCards.stream()
+                    .map(Card::toString)
+                    .reduce((a, b) -> a + " " + b)
+                    .orElse("");
+
+            System.out.println("玩家 " + player.getName() + " 打出了 " + patternName + " " + cardsStr);
+            player.getHand().removeCards(playedCards);
+            return true;
+        } else {
+            System.out.println("此牌型不合法，請再嘗試一次。");
+            return false;
+        }
     }
 }

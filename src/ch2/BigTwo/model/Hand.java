@@ -43,4 +43,12 @@ public class Hand {
         }
     }
 
+
+    public void removeCards(List<Card> playedCards) {
+        for (Card card : playedCards) {
+            if (!cards.remove(card)) {
+                throw new IllegalArgumentException("Card not found in hand: " + card);
+            }
+        }
+    }
 }
