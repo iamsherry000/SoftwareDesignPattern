@@ -31,4 +31,8 @@ public class Player {
         List<Card> playedCards = hand.getOrderedHand();
         return playedCards;
     }
+
+    public void addCard(Card card) {
+        hand.addCard(card);
+    }
 }

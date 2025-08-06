@@ -1,5 +1,6 @@
 package BigTwo.game;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import BigTwo.model.*;
@@ -9,9 +10,187 @@ import BigTwo.pattern.single.SingleHandler;
 import BigTwo.pattern.straight.StraightHandler;
 import BigTwo.pattern.fullHouse.FullHouseHandler;
 import java.util.List;
+import java.io.FileInputStream;
 
 public class BigTwo {
     public static void main(String[] args) {
+        // interactiveStart();
+        readStart();
+    }
+
+    private static void readFile() {
+        try {
+            //System.out.println("Reading input from file...");
+            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/always-play-first-card.in"));
+            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/fullhouse.in"));
+            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/illegal-actions.in"));
+            System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play1.in"));
+            //System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play2.in"));
+            //System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/straight.in"));
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /// ====== Sherry v2 2025/8/6 ======
+    private static void readStart() {
+        readFile(); // 讀取檔案
+        Scanner scanner = new Scanner(System.in);
+
+        /// 0. 初始化遊戲狀態
+        boolean isGameOver = false;
+        CardPattern topPlayPattern = null;
+        int passCount = 0;
+        boolean isFirstRound = true;
+        PatternHandler handlerChain = setHandlerChain();
+
+        /// 1. 讀入 deck
+        Deck deck = readDeck(scanner);
+
+        /// 2. 讀入四位玩家名稱
+        int PLAYER_LENGTH = 4;
+        Player[] players = readPlayerObjects(scanner, PLAYER_LENGTH);
+
+        /// 3. 不洗牌，發牌
+        playerGetCards(players, deck); // 發牌
+        int firstPlayerIndex = findFirstPlayer(players); //cube 3
+        int currentPlayerIndex = firstPlayerIndex;
+
+        System.out.println("新的回合開始了。");
+        while (!isGameOver) {
+            Player currentPlayer = players[currentPlayerIndex];
+            System.out.println("輪到 " + currentPlayer.getName() + " 了");
+            printCurrentHand(currentPlayer);
+
+            boolean validMove = false;
+            while (!validMove) {
+                if (!scanner.hasNextLine()) {
+                    System.out.println("測資已結束，沒有更多輸入了！");
+                    return;
+                }
+
+                String input = scanner.nextLine().trim();
+
+                if (input.equals("-1")) {
+                    if (topPlayPattern == null) {
+                        System.out.println("你不能在新的回合中喊 PASS");
+                    } else {
+                        System.out.println(currentPlayer.getName() + " PASS.");
+                        validMove = true;
+                        passCount++;
+                    }
+                } else {
+                    List<Integer> indexes = parseIndexes(input);
+                    List<Card> playedCards = getCardsByIndexes(currentPlayer, indexes);
+
+                    if (playedCards == null || playedCards.isEmpty()) {
+                        System.out.println("輸入不合法，請重新輸入");
+                        continue;
+                    }
+
+                    CardPattern currentPattern = handlerChain.recognize(playedCards);
+
+                    if (handlePlay(currentPlayer, playedCards, currentPattern, topPlayPattern, isFirstRound)) {
+                        isFirstRound = false;
+                        topPlayPattern = currentPattern;
+                        passCount = 0;
+                        validMove = true;
+                    }
+                }
+            }
+
+            if (currentPlayer.getHand().isEmpty()) {
+                System.out.println("遊戲結束！勝利者是 " + currentPlayer.getName());
+                isGameOver = true;
+            } else if (passCount == PLAYER_LENGTH - 1) {
+                System.out.println("三人 PASS，新回合開始！");
+                topPlayPattern = null;
+                passCount = 0;
+                isFirstRound = false;
+            }
+
+            currentPlayerIndex = (currentPlayerIndex + 1) % PLAYER_LENGTH;
+        }
+
+            /// Test: 印出
+//        System.out.println("=== Deck === " + deck.getSize());
+//        for (int i = 0; i < deck.getSize(); i++) {
+//            Card card = deck.getCard(i);
+//            System.out.print(card + " ");
+//        }
+//
+//        System.out.println("\n=== Players and Their Hands ===");
+//        for (Player player : players) {
+//            System.out.println(player.getName() + "'s hand: " + player.getHand().getOrderedHand());
+//        }
+    }
+
+    private static Player[] readPlayerObjects(Scanner scanner, int count) {
+        Player[] players = new Player[count];
+        for (int i = 0; i < count; i++) {
+            if (scanner.hasNextLine()) {
+                String name = scanner.nextLine().trim();
+                players[i] = new Player(name);
+            } else {
+                throw new IllegalArgumentException("輸入的玩家名稱數量不足！");
+            }
+        }
+        return players;
+    }
+
+    private static Deck readDeck(Scanner scanner) {
+        Deck deck = new Deck();
+        if (!scanner.hasNextLine()) return deck;
+
+        String line = scanner.nextLine().trim();
+        String[] tokens = line.split(" ");
+
+        for (String token : tokens) {
+            char suitChar = token.charAt(0);
+            String rankStr = token.substring(2, token.length() - 1); // 拿掉中括號
+            int suit = parseSuit(suitChar);
+            int rank = parseRank(rankStr);
+            deck.add(new Card(suit, rank));
+        }
+
+        return deck;
+    }
+
+    private static List<Integer> parseIndexes(String input) {
+        try {
+            String[] parts = input.trim().split(" ");
+            List<Integer> indexes = new ArrayList<>();
+            for (String part : parts) {
+                if (!part.isBlank()) {
+                    indexes.add(Integer.parseInt(part));
+                }
+            }
+            return indexes;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    private static List<Card> getCardsByIndexes(Player player, List<Integer> indexes) {
+        List<Card> hand = player.getHand().getOrderedHand(); // or getCards()
+        List<Card> selected = new ArrayList<>();
+        for (int idx : indexes) {
+            if (idx < 0 || idx >= hand.size()) {
+                System.out.println("索引超出範圍！");
+                return null;
+            }
+            selected.add(hand.get(idx));
+        }
+        return selected;
+    }
+
+
+
+
+    /// ====== Sherry v1 2025/8/5 ======
+
+    private static void interactiveStart() {
         int PLAYER_LENGTH = 4;
         Player[] players = new Player[PLAYER_LENGTH];
         Deck deck = new Deck();
@@ -19,6 +198,7 @@ public class BigTwo {
 
         // askPlayerName(players); // 讓玩家輸入名字
         defaultPlayerName(players); // 讓玩家default名字(測試)
+        // readPlayer(players); // 讀取玩家名字
         deck.shuffle();// 洗牌
         playerGetCards(players, deck);// 發牌
 
@@ -29,7 +209,7 @@ public class BigTwo {
         boolean isGameOver = false;
         boolean isFirstRound = true;
 
-        System.out.println("Welcome to Big Two!");
+        System.out.println("新的回合開始了。");
 
         while (!isGameOver) {
             Player currentPlayer = players[currentPlayerIndex]; // Get the current player
@@ -88,6 +268,10 @@ public class BigTwo {
         }
     }
 
+//    private static void readPlayer(Player[] players) {
+//
+//    }
+
     private static void playerGetCards(Player[] players, Deck deck) {
         int tempIndex = 0;
         // add cards to players' hands
@@ -101,9 +285,9 @@ public class BigTwo {
         int firstPlayerIndex = -1;
         Card club3 = new Card(0, 0);
         for (int i = 0; i < players.length; i++) {
-            if (players[i].hasCard(club3)) { // club3 is represented as suit 0, rank 2
+            if (players[i].hasCard(club3)) { // club3 is represented as suit 0, rank 0
                 firstPlayerIndex = i;
-                // System.out.println(players[i].getName() + " has club3!");
+                //System.out.println(players[i].getName() + " has club3!");
                 break;
             }
         }
@@ -209,5 +393,34 @@ public class BigTwo {
             System.out.println("此牌型不合法，請再嘗試一次。");
             return false;
         }
+    }
+
+    public static int parseSuit(char ch) {
+        return switch (ch) {
+            case 'C' -> 0; // Clubs
+            case 'D' -> 1; // Diamonds
+            case 'H' -> 2; // Hearts
+            case 'S' -> 3; // Spades
+            default -> throw new IllegalArgumentException("Invalid suit: " + ch);
+        };
+    }
+
+    public static int parseRank(String s) {
+        return switch (s) {
+            case "A" -> 11;
+            case "2" -> 12;
+            case "3" -> 0;
+            case "4" -> 1;
+            case "5" -> 2;
+            case "6" -> 3;
+            case "7" -> 4;
+            case "8" -> 5;
+            case "9" -> 6;
+            case "10" -> 7;
+            case "J" -> 8;
+            case "Q" -> 9;
+            case "K" -> 10;
+            default -> throw new IllegalArgumentException("Invalid rank: " + s);
+        };
     }
 }
