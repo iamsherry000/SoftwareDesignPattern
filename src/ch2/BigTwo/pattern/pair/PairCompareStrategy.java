@@ -12,8 +12,8 @@ public class PairCompareStrategy implements CompareStrategy {
             return false;
         }
         // 取得兩個牌組的第一張牌
-        Card a = pattern1.getCards().get(0);
-        Card b = pattern2.getCards().get(0);
+        Card a = pattern1.getCards().get(1);
+        Card b = pattern2.getCards().get(1);
 
         // 比較兩張牌的等級
         if (a.getRank() != b.getRank()) {

@@ -24,9 +24,9 @@ public class BigTwo {
             //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/always-play-first-card.in"));
             //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/fullhouse.in"));
             //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/illegal-actions.in"));
-            System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play1.in"));
-            //System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play2.in"));
-            //System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/straight.in"));
+            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play1.in"));
+            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play2.in"));
+            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/straight.in"));
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
             e.printStackTrace();
@@ -112,18 +112,6 @@ public class BigTwo {
 
             currentPlayerIndex = (currentPlayerIndex + 1) % PLAYER_LENGTH;
         }
-
-            /// Test: 印出
-//        System.out.println("=== Deck === " + deck.getSize());
-//        for (int i = 0; i < deck.getSize(); i++) {
-//            Card card = deck.getCard(i);
-//            System.out.print(card + " ");
-//        }
-//
-//        System.out.println("\n=== Players and Their Hands ===");
-//        for (Player player : players) {
-//            System.out.println(player.getName() + "'s hand: " + player.getHand().getOrderedHand());
-//        }
     }
 
     private static Player[] readPlayerObjects(Scanner scanner, int count) {
@@ -268,10 +256,6 @@ public class BigTwo {
         }
     }
 
-//    private static void readPlayer(Player[] players) {
-//
-//    }
-
     private static void playerGetCards(Player[] players, Deck deck) {
         int tempIndex = 0;
         // add cards to players' hands
@@ -358,7 +342,7 @@ public class BigTwo {
             }
             return playedCards;
         } catch (Exception e) {
-            System.out.println("此牌型不合法，請再嘗試一次。");
+            System.out.println("parsePlayedCards 此牌型不合法，請再嘗試一次。");
             return null;
         }
     }
@@ -367,7 +351,7 @@ public class BigTwo {
         Card club3 = new Card(0, 0); // Club 3 is represented as suit 0, rank 2
 
         if (currentPattern == null) {
-            System.out.println("此牌型不合法，請再嘗試一次。");
+            System.out.println("handlePlay1 此牌型不合法，請再嘗試一次。");
             return false;
         }
 
@@ -390,7 +374,7 @@ public class BigTwo {
             player.getHand().removeCards(playedCards);
             return true;
         } else {
-            System.out.println("此牌型不合法，請再嘗試一次。");
+            System.out.println("handlePlay2 此牌型不合法，請再嘗試一次。");
             return false;
         }
     }
