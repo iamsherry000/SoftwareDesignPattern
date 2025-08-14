@@ -21,7 +21,7 @@ public class BigTwo {
     private static void readFile() {
         try {
             //System.out.println("Reading input from file...");
-            //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/always-play-first-card.in"));
+            System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/always-play-first-card.in"));//✅
             //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/fullhouse.in"));
             //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/illegal-actions.in"));
             //✅System.setIn(new FileInputStream("src/ch2/BigTwo/test/testPlan/normal-no-error-play1.in"));
