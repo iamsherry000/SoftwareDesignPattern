@@ -10,7 +10,7 @@ public class Main {
         Tank tank = new Tank();
         Telecom telecom = new Telecom();
         Keyboard keyboard = new Keyboard();
-        MainController controller = new MainController();
+        MainController controller = new MainController(keyboard);
 
         Scanner in = new Scanner(System.in);
         while (true) {
