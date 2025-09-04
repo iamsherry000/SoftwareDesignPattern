@@ -27,4 +27,6 @@ public class MainController {
         undoStack.push(cmd);
         redoStack.clear(); // 新動作後 redo stack 清空
     }
+
+    
 }
