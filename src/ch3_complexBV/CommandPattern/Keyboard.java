@@ -2,6 +2,7 @@ package ch3_complexBV.CommandPattern;
 
 import java.util.HashMap;
 import java.util.Map;
+import ch3_complexBV.CommandPattern.commands.Command;
 
 public class Keyboard {
     private Map<Character, Command> keyMap = new HashMap<>();

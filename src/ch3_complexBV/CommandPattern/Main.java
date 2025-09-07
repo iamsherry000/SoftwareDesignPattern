@@ -6,18 +6,18 @@ import ch3_complexBV.CommandPattern.commands.*;
 import java.util.Scanner;
 
 public class Main {
-    // Receivers
-    Tank tank = new Tank();
-    Telecom telecom = new Telecom();
-
-    // Invoker
-    Keyboard keyboard = new Keyboard();
-    MainController controller = new MainController(keyboard);
-
     public static void main(String[] args) {
+        // Receivers
+        Tank tank = new Tank();
+        Telecom telecom = new Telecom();
+
+        // Invoker
+        Keyboard keyboard = new Keyboard();
+        MainController controller = new MainController(keyboard);
+
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("(1) 快捷鍵設置 (2) Undo (3) Redo (字母) 按下按鍵: ");
+            System.out.print("(1) 快捷鍵設置 (2) Undo (3) Redo (字母) 按下按鍵: ");
             String input = sc.nextLine().trim();
             if (input.isEmpty()) continue;
 
@@ -32,10 +32,24 @@ public class Main {
                     continue;
                 }
                 char key = keyStr.charAt(0);
-                // todo: for MacroCommands
+                if(yn.equals("y")) {
+                    // todo: for MacroCommands y
+                    // setMacroCommands();
+                }
+                else if(yn.equals("n")) {
+                    System.out.println("要將哪一道指令設置到快捷鍵 " + keyStr + "上:");
+                    printMenuOptions();
+                    String cmdInput = sc.nextLine().trim();
+                    contrller.setCommand(key, cmdInput);
+                }
+                else {
+                    System.out.println("請輸入 y 或 n。");
+                }
             } else if (input.equals("2")) {
+                System.out.println("Undo");
                 //todo: controller.undo();
             } else if (input.equals("3")) {
+                System.out.println("Redo");
                 //todo: controller.redo();
             } else if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
                 // 按鍵

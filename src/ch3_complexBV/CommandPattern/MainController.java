@@ -28,5 +28,8 @@ public class MainController {
         redoStack.clear(); // 新動作後 redo stack 清空
     }
 
-    
+    private void setCommand(char Key, String cmdInput) {
+
+    }
+
 }
