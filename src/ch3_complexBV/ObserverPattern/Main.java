@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args){
         YT_Channel channel1 = new YT_Channel("水球軟體學院");
         YT_Channel channel2 = new YT_Channel("PewDiePie");
-        Waterball waterball = new Waterball("水球");
+        Waterball waterball = new Waterball("水球"); // Should be User1 User2, but whatever, get things done first
         Fireball fireball = new Fireball("火球");
         channel1.subscribe(waterball);
         channel2.subscribe(waterball);
@@ -15,5 +15,9 @@ public class Main {
         Video video3 = new Video("C1M1S3", "物件 vs. 類別", 60);
         Video video4 = new Video("Minecraft", "Let’s play Minecraft", 1800);
 
+        channel1.uploadVideo(video1); //頻道 水球軟體學院 上架了一則新影片 "C1M1S2"。
+        channel2.uploadVideo(video2); //頻道 PewDiePie 上架了一則新影片 "Hello guys"。
+        channel1.uploadVideo(video3); // 頻道 水球軟體學院 上架了一則新影片 "C1M1S3"。
+        channel2.uploadVideo(video4); // 頻道 PewDiePie 上架了一則新影片 "Minecraft"。
     }
 }

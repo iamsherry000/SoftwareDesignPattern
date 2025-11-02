@@ -2,6 +2,7 @@ package ch3_complexBV.ObserverPattern;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class YT_Channel {
     public String name;
@@ -23,13 +24,22 @@ public class YT_Channel {
     }
 
     public void uploadVideo(Video video) {
-        System.out.println("Channel "+ name + "uploaded a new video: " + video.title);
+        System.out.println("Channel "+ name + " uploaded a new video \"" + video.title + "\".");
         notifySubscribers(video);
     }
 
     private void notifySubscribers(Video video) {
-        for (YT_User user : subscribers) {
-            user.update(video);
+        for (YT_User user : new ArrayList<>(subscribers)) {
+            user.update(this, video);
         }
+//        Iterator<YT_User> iterator = subscribers.iterator();
+//        while (iterator.hasNext()) {
+//            YT_User user = iterator.next();
+//            user.update(this, video);
+//            if (!user.isInterested(video)) { // Assuming `isInterested` checks if the user wants to unsubscribe
+//                iterator.remove(); // Safely remove the user
+//                System.out.println(user.getName() + " unsubscribed from " + this.name);
+//            }
+//        }
     }
 }
