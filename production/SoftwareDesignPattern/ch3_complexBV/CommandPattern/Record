@@ -1,8 +1,0 @@
-開發日記
-===
-1. Command、Objects(Tank, Telecom) ✅
-2. Concrete Commands ✅
-3. Keyboard（綁定與觸發）✅
-4. MainController ✅
-5. MacroCommand（巨集，含 Undo/Redo）
-6. Main() ⚠️
