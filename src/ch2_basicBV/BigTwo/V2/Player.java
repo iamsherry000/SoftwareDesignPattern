@@ -11,5 +11,6 @@ public class Player {
 
     public boolean hasCard(Card card) {
         //todo: implement this method
+        return false;
     }
 }
