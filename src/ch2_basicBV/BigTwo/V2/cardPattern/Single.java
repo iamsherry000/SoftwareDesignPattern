@@ -1,22 +1,18 @@
 package cardPattern;
 
 import card.Card;
+import java.util.List;
 
-public class Single implements CardPattern {
-    private final Card card;
+public class Single extends CardPattern {
     
-    public Single(Card card) {
-        this.card = card;
-    }
-
-    @Override
-    public boolean isGreaterThan(CardPattern other) {
-        // if(this.card.getRank() != other.getRank()) {
-        //     return this.card.getRank().ordinal() > other.card.getRank().ordinal();
-        // }
-        // else {
-        //     return this.card.getSuit().ordinal() > other.card.getSuit().ordinal();
-        // }
-        return false;
+    public Single(List<Card> cards) {
+        super(cards);  // 呼叫父類別的建構子
+        
+        // 驗證：單張牌型 = 1 張牌
+        if (cards.size() != 1) {
+            throw new IllegalArgumentException(
+                "Single must have exactly 1 card, but got " + cards.size()
+            );
+        }
     }
 }

@@ -1,33 +1,26 @@
 package cardPattern;
 
 import card.Card;
+import java.util.List;
 
-public class Pair {
-    private final Card card1;
-    private final Card card2;
-
-    public Pair(Card card1, Card card2) {
-        this.card1 = card1;
-        this.card2 = card2;
-    }
-
-    private Card getHigherCard() {
-        if(this.card1.getRank().ordinal() > this.card2.getRank().ordinal()) {
-            return this.card1;
-        }
-        else {
-            return this.card2;
-        }
-    }
-    
-    public boolean isGreaterThan(Pair other) {
-        Card card = getHigherCard();
+public class Pair extends CardPattern{
+    public Pair(List<Card> cards) {
+        super(cards);  // 呼叫父類別的建構子
         
-        if(card.getRank() != card.getRank()) {
-            return card.getRank().ordinal() > card.getRank().ordinal();
-        }
-        else {
-            return card.getSuit().ordinal() > card.getSuit().ordinal();
+        // 驗證：pair = 2 張牌
+        if (cards.size() != 2) {
+            throw new IllegalArgumentException(
+                "Pair must have exactly 2 cards, but got " + cards.size()
+            );
         }
     }
+
+    // private Card getBigestCard() {
+    //     Card card1 = this.getCards().get(0);
+    //     Card card2 = this.getCards().get(1);
+        
+        
+    // }
+
+    
 }
