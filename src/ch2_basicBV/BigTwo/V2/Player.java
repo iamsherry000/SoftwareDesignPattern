@@ -12,4 +12,8 @@ public class Player {
     public boolean hasCard(Card card) {
         //todo: implement this method
     }
+
+    public void nameThemselves() {
+        
+    }
 }
