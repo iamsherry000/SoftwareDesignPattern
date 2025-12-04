@@ -15,12 +15,16 @@ public class Pair extends CardPattern{
         }
     }
 
-    // private Card getBigestCard() {
-    //     Card card1 = this.getCards().get(0);
-    //     Card card2 = this.getCards().get(1);
+    private Card getBigestCard() {
+        Card card1 = this.getCards().get(0);
+        Card card2 = this.getCards().get(1);
         
-        
-    // }
+        if(card1.getRank().getValue() > card2.getRank().getValue()) {
+            return card1;
+        } else {
+            return card2;
+        }
+    }
 
     
 }

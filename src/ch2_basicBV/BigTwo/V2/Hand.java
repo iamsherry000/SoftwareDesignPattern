@@ -10,16 +10,16 @@ public class Hand {
         this.hand = new ArrayList<>();
     }
 
-    public void add(Card card) {
+    public void addCard(Card card) {
         hand.add(card);
     }
 
-    public void remove(Card card) {
+    public void removeCard(Card card) {
         hand.remove(card);
     }
     
     public boolean isEmpty() {
-        return hand.isEmpty();
+        return hand.length == 0;
     }
 
     public boolean hasCard(Card card) {
@@ -29,5 +29,4 @@ public class Hand {
     public String toString() {
         return hand.toString();
     }
-    
 }

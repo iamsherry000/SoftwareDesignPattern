@@ -1,6 +1,5 @@
 
 public class Main {
-<<<<<<< HEAD
     Card club3 = new Card(Suit.CLUB, Rank.THREE);
     
     public static void main(String[] args) {
@@ -32,7 +31,5 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         player.setName(scanner.nextLine());
     }
-=======
 
->>>>>>> 5787cea11935d7a2048a58f219b241d934c659e3
 }

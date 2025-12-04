@@ -1,19 +1,18 @@
-/* 單張 (Single)：一張牌。
-* 大小比較規則：先比數字再比花色。
-* 數字由小到大依序為：3<4<5<...<10<J<Q<K<A<2
-* 花色大小規則：♣ < ♦ < ♥ < ♠
-*/
-public class Single {
-    private Card card;
-    public Single(Card card) {
-        this.card = card;
-    }
-    public Card getCard() {
-        return card;
-    }
-    public boolean isGreaterThan(Single other) {
-        return this.card.getRank().getValue() > other.card.getRank().getValue() ||
-               (this.card.getRank().getValue() == other.card.getRank().getValue() &&
-                this.card.getSuit().getValue() > other.card.getSuit().getValue());
+package cardPattern;
+
+import card.Card;
+import java.util.List;
+
+public class Single extends CardPattern {
+    
+    public Single(List<Card> cards) {
+        super(cards);  // 呼叫父類別的建構子
+        
+        // 驗證：單張牌型 = 1 張牌
+        if (cards.size() != 1) {
+            throw new IllegalArgumentException(
+                "Single must have exactly 1 card, but got " + cards.size()
+            );
+        }
     }
 }

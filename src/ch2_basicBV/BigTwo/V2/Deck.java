@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-public class Deck {
-    
-    public Deck() {
-        
-    }
-}
-=======
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,4 +33,3 @@ public class Deck {
         return cards.remove(cards.size() - 1);
     }
 }
->>>>>>> 5787cea11935d7a2048a58f219b241d934c659e3
