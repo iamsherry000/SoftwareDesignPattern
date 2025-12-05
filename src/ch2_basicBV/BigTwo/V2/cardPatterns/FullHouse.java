@@ -1,3 +1,8 @@
+package cardPatterns;
+
+import card.Card;
+import java.util.List;
+
 public class FullHouse extends CardPattern {
     public FullHouse(List<Card> cards) {
         super(cards);

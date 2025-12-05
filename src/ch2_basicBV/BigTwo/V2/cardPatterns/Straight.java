@@ -1,3 +1,8 @@
+package cardPatterns;
+
+import card.Card;
+import java.util.List;
+
 public class Straight extends CardPattern {
 
     public Straight(List<Card> cards) {

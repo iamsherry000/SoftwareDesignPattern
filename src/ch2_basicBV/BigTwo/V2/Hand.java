@@ -1,7 +1,6 @@
-import java.util.List;
-import java.util.ArrayList;
-
 import card.Card;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hand {
     private final List<Card> hand;
@@ -18,9 +17,9 @@ public class Hand {
         hand.remove(card);
     }
     
-    public boolean isEmpty() {
-        return hand.length == 0;
-    }
+    // public boolean isEmpty() {
+    //     return hand.isEmpty();
+    // }
 
     public boolean hasCard(Card card) {
         return hand.contains(card);

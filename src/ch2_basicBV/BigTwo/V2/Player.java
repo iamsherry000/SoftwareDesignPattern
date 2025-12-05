@@ -1,6 +1,6 @@
 import card.Card;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     
@@ -27,5 +27,13 @@ public class Player {
 
     public boolean hasCard(Card card) {
         return handCards.contains(card);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

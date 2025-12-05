@@ -4,7 +4,7 @@
 * 
 */
 
-package cardPattern;
+package cardPatterns;
 
 import card.Card;
 import java.util.List;
