@@ -3,29 +3,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    private final List<Card> hand;
+    private final List<Card> cards;
 
     public Hand() {
-        this.hand = new ArrayList<>();
+        this.cards = new ArrayList<>();
     }
 
     public void addCard(Card card) {
-        hand.add(card);
+        cards.add(card);
     }
 
     public void removeCard(Card card) {
-        hand.remove(card);
+        cards.remove(card);
     }
     
-    // public boolean isEmpty() {
-    //     return hand.isEmpty();
-    // }
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
+
+    public int size() {
+        return cards.size();
+    }
 
     public boolean hasCard(Card card) {
-        return hand.contains(card);
+        return cards.contains(card);
+    }
+
+    public List<Card> getCards() {
+        return new ArrayList<>(cards); // 回傳副本以保護內部狀態
     }
 
     public String toString() {
-        return hand.toString();
+        return cards.toString();
     }
 }

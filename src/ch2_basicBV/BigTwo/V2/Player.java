@@ -1,32 +1,43 @@
 import card.Card;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     
     private String name;
-    private List<Card> handCards;
+    private Hand hand;
 
     public Player(String name) {
         this.name = name;
-        this.handCards = new ArrayList<>();
+        this.hand = new Hand();
     }
 
+    // 委派給 Hand 處理卡牌操作
+    public void addCard(Card card) {
+        hand.addCard(card);
+    }
+
+    public void removeCard(Card card) {
+        hand.removeCard(card);
+    }
 
     public List<Card> getHandCards() {
-        return new ArrayList<>(handCards); // 回傳副本以保護內部狀態
+        return hand.getCards();
     }
 
     public int getHandSize() {
-        return handCards.size();
+        return hand.size();
     }
 
     public boolean isEmpty() {
-        return handCards.isEmpty();
+        return hand.isEmpty();
     }
 
     public boolean hasCard(Card card) {
-        return handCards.contains(card);
+        return hand.hasCard(card);
+    }
+
+    public Hand getHand() {
+        return hand;
     }
 
     public String getName() {

@@ -5,18 +5,15 @@ import card.Suit;
 import java.util.Scanner;
 
 public class Main {
-    Card club3 = new Card(Suit.CLUB, Rank.THREE);
-    
     public static void main(String[] args) {
+        Card club3 = new Card(Suit.CLUB, Rank.THREE);
+        Player[] players = new Player[4];
         int round = 1; 
+        Scanner scanner = new Scanner(System.in);
 
         // 玩家命名初始化
-        Player[] players = new Player[4];
         for(int i = 0; i < 4; i++) {
-            playerNaming(players[i]);
-            
-            // Check 4 player's names
-            System.out.println(players[i].getName());
+            players[i] = playerNaming(scanner);
         }
 
         // Deck 洗牌、發牌
@@ -34,10 +31,10 @@ public class Main {
         // }
     }
 
-    public static void playerNaming(Player player) {
+    public static Player playerNaming(Scanner scanner) {
         System.out.println("Input player's name：");
-        Scanner scanner = new Scanner(System.in);
-        player.setName(scanner.nextLine());
+        String name = scanner.nextLine();
+        return new Player(name);
     }
 
     // private Player findFirstPlayer(Player[] players) {
