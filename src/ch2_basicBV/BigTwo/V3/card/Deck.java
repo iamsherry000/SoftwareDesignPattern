@@ -8,6 +8,13 @@ public class Deck {
 
     public Deck() {
         this.cards = new Stack<>();
+        for(Suit suit : Suit.values()) {
+            for(Rank rank : Rank.values()) {
+                Card card = new Card(suit, rank);
+                cards.push(card);
+                // System.out.println("just added: " + card + ", size now = " + cards.size());
+            }
+        }
     }
 
     public void shuffle() {

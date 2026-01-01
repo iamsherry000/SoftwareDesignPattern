@@ -5,7 +5,15 @@ import ch2_basicBV.BigTwo.V3.card.Card;
 
 public class PairHandler extends CardPatternHandler {
     public PairHandler(CardPatternHandler next) {
-        super();
+        super(next);
+    }
+
+    @Override
+    protected CardPattern tryHandle(List<Card> cards) {
+        if (isPair(cards)) {
+            return new Pair(cards);
+        }
+        return null;
     }
 
     private boolean isPair(List<Card> cards) {
