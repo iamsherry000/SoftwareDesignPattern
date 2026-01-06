@@ -11,6 +11,11 @@ public class NullCardPattern extends CardPatternHandler {
     }
 
     @Override
+    public CardPattern handle(List<Card> cards) {
+        return null; // NullCardPattern 是終點，直接返回 null
+    }
+
+    @Override
     protected CardPattern tryHandle(List<Card> cards) {
         return null; // NullCardPattern 總是返回 null
     }

@@ -14,7 +14,7 @@ public abstract class CardPatternHandler {
     
     // 這個 class 不能被外界隨便 new，但子類可以(參考 PairHandler)。
     protected CardPatternHandler() {
-        this.next = null;
+        this.next = NullCardPattern.INSTANCE;
     }
 
     // Chain 的語意變成「一定會走到某個終點」
@@ -31,11 +31,7 @@ public abstract class CardPatternHandler {
             return pattern;
         }
         
-        if (next != null && !(next instanceof NullCardPattern)) {
-            return next.handle(cards);
-        }
-        
-        return null; // 無法識別的牌型
+        return next.handle(cards);
     }
 
     /**
