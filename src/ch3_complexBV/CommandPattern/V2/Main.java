@@ -9,18 +9,18 @@ public class Main {
         MainController controller = new MainController();
         
         // Interactions
-        System.out.println("(1) 快捷鍵設置 (2) Undo (3) Redo (字母) 按下按鍵: ");
+        System.out.println("(1) setup key (2) Undo (3) Redo (letter) ur choice: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         if (input.equals("1")) {
-            System.out.println("設定巨集指令 (y/n): ");
+            System.out.println("Set Macro (y/n): ");
             String yn = scanner.nextLine();
             if (!yn.equals("y") && !yn.equals("n")) {
-                System.out.println("指令不合法。");
+                System.out.println("Illigal");
                 return; 
             }
             if (yn.equals("y")) {
-                System.out.println("請輸入巨集指令: ");
+                System.out.println("Input Macro: ");
                 // todo: setMacroCommand
             } else if (yn.equals("n")) {
                 System.out.println("Key: ");
@@ -35,7 +35,7 @@ public class Main {
             System.out.println("Redo");
         }
         else {
-            System.out.println("指令不合法。");
+            System.out.println("Illigal");
         }
     }
 }
