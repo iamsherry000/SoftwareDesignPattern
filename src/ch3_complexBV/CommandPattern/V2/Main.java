@@ -24,8 +24,15 @@ public class Main {
                 // todo: setMacroCommand
             } else if (yn.equals("n")) {
                 System.out.println("Key: ");
-                String command = scanner.nextLine();
-                // controller.setCommand(command);
+                String key = scanner.next();
+                System.out.println("Which command to key: " + key);
+                System.out.println("(0) MoveTankForward");
+                System.out.println("(1) MoveTankBackward");
+                System.out.println("(2) ConnectTelecom");
+                System.out.println("(3) DisconnectTelecom");
+                System.out.println("(4) ResetMainControlKeyboard");
+                int commandChoice = scanner.nextInt();
+                controller.setCommand(commandChoice);
             }
         }
         else if (input.equals("2")) {
