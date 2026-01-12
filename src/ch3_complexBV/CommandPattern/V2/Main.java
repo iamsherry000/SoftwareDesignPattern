@@ -7,6 +7,8 @@ public class Main {
     public static void main(String[] args) {
         // Invoker
         MainController controller = new MainController();
+        // better do this way. -2026-01-12 Needs to change it.
+        //Command[] commands = {new MoveTankForward(), new MoveTankBackward(), new ConnectTelecom(), new DisconnectTelecom(), new ResetMainControlKeyboard()};
         
         // Interactions
         System.out.println("(1) setup key (2) Undo (3) Redo (letter) ur choice: ");
@@ -32,7 +34,7 @@ public class Main {
                 System.out.println("(3) DisconnectTelecom");
                 System.out.println("(4) ResetMainControlKeyboard");
                 int commandChoice = scanner.nextInt();
-                controller.setCommand(commandChoice);
+                controller.setCommand(key, commandChoice);
             }
         }
         else if (input.equals("2")) {

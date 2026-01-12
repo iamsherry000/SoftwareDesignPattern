@@ -1,8 +1,8 @@
 package ch3_complexBV.CommandPattern.V2.invoker;
 
+import ch3_complexBV.CommandPattern.V2.commands.Command;
 import java.util.HashMap;
 import java.util.Map;
-import ch3_complexBV.CommandPattern.V2.commands.Command;
 
 public class MainController {
     
@@ -12,7 +12,7 @@ public class MainController {
         this.keyboard = new HashMap<>();
     }
 
-    public void setCommand(char key, int commandChoice) {
-        keyboard.put(key, );
+    public void setCommand(String key, int commandChoice) {
+        
     }
 }
