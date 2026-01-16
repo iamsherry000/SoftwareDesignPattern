@@ -4,9 +4,15 @@ import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
 
 public class Disconnect implements Command {
     private Telecom telecom;
+    private String commandName = "DisconnectTelecom";
 
     public Disconnect(Telecom telecom) {
         this.telecom = telecom;
+    }
+
+    @Override
+    public String getName() {
+        return commandName;
     }
 
     @Override

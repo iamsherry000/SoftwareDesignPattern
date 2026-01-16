@@ -1,14 +1,25 @@
 package ch3_complexBV.CommandPattern.V2;
 
+import ch3_complexBV.CommandPattern.V2.commands.Command;
+import ch3_complexBV.CommandPattern.V2.commands.Connect;
+import ch3_complexBV.CommandPattern.V2.commands.Disconnect;
+import ch3_complexBV.CommandPattern.V2.commands.moveBackward;
+import ch3_complexBV.CommandPattern.V2.commands.moveForward;
 import ch3_complexBV.CommandPattern.V2.invoker.MainController;
+import ch3_complexBV.CommandPattern.V2.receivers.Tank;
+import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Receivers
+        Tank tank = new Tank();
+        Telecom telecom = new Telecom();
+        
         // Invoker
         MainController controller = new MainController();
         // better do this way. -2026-01-12 Needs to change it.
-        //Command[] commands = {new MoveTankForward(), new MoveTankBackward(), new ConnectTelecom(), new DisconnectTelecom(), new ResetMainControlKeyboard()};
+        Command[] commands = {new moveForward(tank), new moveBackward(tank), new Connect(telecom), new Disconnect(telecom)};
         
         // Interactions
         System.out.println("(1) setup key (2) Undo (3) Redo (letter) ur choice: ");
@@ -32,9 +43,9 @@ public class Main {
                 System.out.println("(1) MoveTankBackward");
                 System.out.println("(2) ConnectTelecom");
                 System.out.println("(3) DisconnectTelecom");
-                System.out.println("(4) ResetMainControlKeyboard");
+                //System.out.println("(4) ResetMainControlKeyboard");
                 int commandChoice = scanner.nextInt();
-                controller.setCommand(key, commandChoice);
+                controller.setCommand(key, commands[commandChoice]);
             }
         }
         else if (input.equals("2")) {

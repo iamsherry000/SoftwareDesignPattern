@@ -6,13 +6,14 @@ import java.util.Map;
 
 public class MainController {
     
-    private Map<Integer, Command> keyboard;
+    private Map<String, Command> keyboard;
 
     public MainController() {
         this.keyboard = new HashMap<>();
     }
 
-    public void setCommand(String key, int commandChoice) {
-        
+    public void setCommand(String key, Command command) {
+        keyboard.put(key, command);
+        System.out.println(key + " : " + command.getName());
     }
 }
