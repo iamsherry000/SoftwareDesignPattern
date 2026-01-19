@@ -17,7 +17,12 @@ public class MainController {
         System.out.println(key + " : " + command.getName());
     }
 
-    public void getKey(){
-        // keyboard.
+    public void pressKey(char key) {
+        Command command = keyboard.get(key);
+        if (command != null) {
+            command.execute(); // Todo : This is not working correctly. 
+        } else {
+            System.out.println("No command bound to key: " + key);
+        }
     }
 }
