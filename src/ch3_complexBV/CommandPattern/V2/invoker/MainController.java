@@ -16,4 +16,8 @@ public class MainController {
         keyboard.put(key, command);
         System.out.println(key + " : " + command.getName());
     }
+
+    public void getKey(){
+        // keyboard.
+    }
 }
