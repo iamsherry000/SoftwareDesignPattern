@@ -56,6 +56,7 @@ public class Main {
             else if (input.equals("3")) {
                 System.out.println("Redo");
             }
+            else if (input.equals(key))
             else {
                 System.out.println("Illigal");
             }
