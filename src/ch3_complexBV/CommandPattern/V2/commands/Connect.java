@@ -18,5 +18,12 @@ public class Connect implements Command {
     @Override
     public void execute() {
         telecom.setConnected(true);
+        System.out.println("Telecom connected");
+    }
+
+    @Override
+    public void undo() {
+        telecom.setConnected(false);
+        System.out.println("Telecom disconnected");
     }
 }

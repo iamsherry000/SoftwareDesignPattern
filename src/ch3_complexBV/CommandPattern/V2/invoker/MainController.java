@@ -18,9 +18,9 @@ public class MainController {
     }
 
     public void pressKey(char key) {
-        Command command = keyboard.get(key);
+        Command command = keyboard.get(String.valueOf(key));
         if (command != null) {
-            command.execute(); // Todo : This is not working correctly. 
+            command.execute();
         } else {
             System.out.println("No command bound to key: " + key);
         }
