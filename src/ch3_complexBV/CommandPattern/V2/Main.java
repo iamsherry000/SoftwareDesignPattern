@@ -56,7 +56,13 @@ public class Main {
             else if (input.equals("3")) {
                 System.out.println("Redo");
             }
+<<<<<<< HEAD
             else if (input.equals(key))
+=======
+            else if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
+                controller.pressKey(input.toLowerCase().charAt(0));
+            }
+>>>>>>> 66d942de4d9e7086a9bc5e39502ec0ba8307ea7d
             else {
                 System.out.println("Illigal");
             }
