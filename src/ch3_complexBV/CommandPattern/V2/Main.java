@@ -38,18 +38,23 @@ public class Main {
                     return; 
                 }
                 if (yn.equals("y")) {
-                    System.out.println("Input Macro: "); 
-                    // todo: setMacroCommand - 2026-01-20 - Next step.
-                    
+                    System.out.println("Input Macro key: "); 
+                    String key = scanner.nextLine();
+                    System.out.println("Which commands bind to key: " + key); // a
+                    printMenuOptions();
+                    String macroInput = scanner.nextLine(); // 0 2
+                    String[] macroCommands = macroInput.trim().split("\\s+"); // 空白分割
+                    //System.out.println("Macro: " + String.join(" ", macroCommands));
+                    for(int i = 0 ; i < macroCommands.length; i++) {
+                       int commandChoice = Integer.parseInt(macroCommands[i]);
+                       controller.setCommand(key, commands[commandChoice]);
+                    }
+                    // System.out.println(key + ": " + String.join(" ", macroCommands));
                 } else if (yn.equals("n")) {
                     System.out.println("Key: ");
                     String key = scanner.next();
                     System.out.println("Which command to key: " + key);
-                    System.out.println("(0) MoveTankForward");
-                    System.out.println("(1) MoveTankBackward");
-                    System.out.println("(2) ConnectTelecom");
-                    System.out.println("(3) DisconnectTelecom");
-                    //System.out.println("(4) ResetMainControlKeyboard");
+                    printMenuOptions();
                     int commandChoice = scanner.nextInt();
                     controller.setCommand(key, commands[commandChoice]);
                     undo.push(commands[commandChoice]);
@@ -71,17 +76,20 @@ public class Main {
                     undo.push(command);
                 }
             }
-<<<<<<< HEAD
-            else if (input.equals(key))
-=======
             else if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
                 controller.pressKey(input.toLowerCase().charAt(0));
             }
->>>>>>> 66d942de4d9e7086a9bc5e39502ec0ba8307ea7d
             else {
                 System.out.println("Illigal");
             }
         }
+    }
+
+    public static void printMenuOptions() {
+        System.out.println("(0) MoveTankForward");
+        System.out.println("(1) MoveTankBackward");
+        System.out.println("(2) ConnectTelecom");
+        System.out.println("(3) DisconnectTelecom");
     }
 }
 
