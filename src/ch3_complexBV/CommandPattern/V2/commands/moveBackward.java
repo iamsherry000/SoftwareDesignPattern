@@ -18,5 +18,12 @@ public class moveBackward implements Command {
     @Override
     public void execute() {
         tank.setPosition(tank.getPosition() - 1);
+        System.out.println("Tank moves backward, current position: " + tank.getPosition());
+    }
+
+    @Override
+    public void undo() {
+        tank.setPosition(tank.getPosition() + 1);
+        System.out.println("Tank moves forward, current position: " + tank.getPosition());
     }
 }
