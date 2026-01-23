@@ -18,12 +18,12 @@ public class Disconnect implements Command {
     @Override
     public void execute() {
         telecom.setConnected(false);
-        System.out.println("Telecom disconnected");
+        System.out.println("The telecom has been turned off.");
     }
 
     @Override
     public void undo() {
         telecom.setConnected(true);
-        System.out.println("Telecom connected");
+        System.out.println("The telecom has been turned on.");
     }
 }

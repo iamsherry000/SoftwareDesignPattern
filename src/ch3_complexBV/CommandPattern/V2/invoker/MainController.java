@@ -3,6 +3,7 @@ package ch3_complexBV.CommandPattern.V2.invoker;
 import ch3_complexBV.CommandPattern.V2.commands.Command;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainController {
     
@@ -14,7 +15,7 @@ public class MainController {
 
     public void setCommand(String key, Command command) {
         keyboard.put(key, command);
-        System.out.println(key + " : " + command.getName());
+        // System.out.println(key + ": " + command.getName());
     }
 
     public void pressKey(char key) {
@@ -24,5 +25,23 @@ public class MainController {
         } else {
             System.out.println("No command bound to key: " + key);
         }
+    }
+
+    public Command getCommand(char key) {
+        return keyboard.get(String.valueOf(key));
+    }
+
+    public void resetKeyboard() {
+        keyboard.clear();
+    }
+
+    public void printAllKeys() {
+        if (keyboard.isEmpty()) {
+            return;
+        }
+        
+        keyboard.entrySet().stream()
+            .sorted(Map.Entry.comparingByKey())
+            .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue().getName()));
     }
 }
