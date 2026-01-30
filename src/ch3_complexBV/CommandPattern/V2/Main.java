@@ -3,8 +3,8 @@ package ch3_complexBV.CommandPattern.V2;
 import ch3_complexBV.CommandPattern.V2.commands.Command;
 import ch3_complexBV.CommandPattern.V2.commands.Connect;
 import ch3_complexBV.CommandPattern.V2.commands.Disconnect;
-import ch3_complexBV.CommandPattern.V2.commands.moveBackward;
-import ch3_complexBV.CommandPattern.V2.commands.moveForward;
+import ch3_complexBV.CommandPattern.V2.commands.MoveBackward;
+import ch3_complexBV.CommandPattern.V2.commands.MoveForward;
 import ch3_complexBV.CommandPattern.V2.invoker.MainController;
 import ch3_complexBV.CommandPattern.V2.receivers.Tank;
 import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
@@ -22,10 +22,10 @@ public class Main {
         // Invoker
         MainController controller = new MainController();
         // better do this way. -2026-01-12 Needs to change it.
-        Command[] commands = {new moveForward(tank), new moveBackward(tank), new Connect(telecom), new Disconnect(telecom)};
-        boolean gameStatus = true;
+        Command[] commands = {new MoveForward(tank), new MoveBackward(tank), new Connect(telecom), new Disconnect(telecom)};
+        boolean isRunning = true;
 
-        while(gameStatus) {
+        while (isRunning) {
             // Interactions
             System.out.println("(1) setup key (2) Undo (3) Redo (letter) ur choice: ");
             Scanner scanner = new Scanner(System.in);
@@ -34,7 +34,7 @@ public class Main {
                 System.out.println("Set Macro (y/n): ");
                 String yn = scanner.nextLine();
                 if (!yn.equals("y") && !yn.equals("n")) {
-                    System.out.println("Illigal");
+                    System.out.println("Illegal");
                     return; 
                 }
                 if (yn.equals("y")) {
@@ -80,7 +80,7 @@ public class Main {
                 controller.pressKey(input.toLowerCase().charAt(0));
             }
             else {
-                System.out.println("Illigal");
+                System.out.println("Illegal");
             }
         }
     }

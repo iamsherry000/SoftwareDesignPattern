@@ -3,16 +3,16 @@ package ch3_complexBV.CommandPattern.V2.commands;
 import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
 
 public class Connect implements Command {
+    private static final String COMMAND_NAME = "ConnectTelecom";
     private Telecom telecom;
-    private String commandName = "ConnectTelecom";
 
     public Connect(Telecom telecom) {
         this.telecom = telecom;
     }
 
-    @Override 
+    @Override
     public String getName() {
-        return commandName;
+        return COMMAND_NAME;
     }
 
     @Override

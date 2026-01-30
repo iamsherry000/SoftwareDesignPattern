@@ -2,17 +2,17 @@ package ch3_complexBV.CommandPattern.V2.commands;
 
 import ch3_complexBV.CommandPattern.V2.receivers.Tank;
 
-public class moveBackward implements Command {
+public class MoveBackward implements Command {
+    private static final String COMMAND_NAME = "MoveTankBackward";
     private Tank tank;
-    private String commandName = "MoveTankBackward";
 
-    public moveBackward(Tank tank) {
+    public MoveBackward(Tank tank) {
         this.tank = tank;
     }
 
     @Override
     public String getName() {
-        return commandName;
+        return COMMAND_NAME;
     }
 
     @Override

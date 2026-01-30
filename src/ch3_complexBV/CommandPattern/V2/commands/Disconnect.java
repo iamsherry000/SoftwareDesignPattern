@@ -3,8 +3,8 @@ package ch3_complexBV.CommandPattern.V2.commands;
 import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
 
 public class Disconnect implements Command {
+    private static final String COMMAND_NAME = "DisconnectTelecom";
     private Telecom telecom;
-    private String commandName = "DisconnectTelecom";
 
     public Disconnect(Telecom telecom) {
         this.telecom = telecom;
@@ -12,7 +12,7 @@ public class Disconnect implements Command {
 
     @Override
     public String getName() {
-        return commandName;
+        return COMMAND_NAME;
     }
 
     @Override
