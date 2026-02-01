@@ -3,14 +3,8 @@ package ch3_complexBV.CommandPattern.V2;
 import ch3_complexBV.CommandPattern.V2.commands.Command;
 import ch3_complexBV.CommandPattern.V2.commands.Connect;
 import ch3_complexBV.CommandPattern.V2.commands.Disconnect;
-<<<<<<< HEAD
 import ch3_complexBV.CommandPattern.V2.commands.MoveBackward;
 import ch3_complexBV.CommandPattern.V2.commands.MoveForward;
-=======
-import ch3_complexBV.CommandPattern.V2.commands.moveBackward;
-import ch3_complexBV.CommandPattern.V2.commands.moveForward;
-import ch3_complexBV.CommandPattern.V2.commands.ResetMainControlKeyboard;
->>>>>>> 63b74ea3c5037799bcae8093bee6fc0d9079539e
 import ch3_complexBV.CommandPattern.V2.invoker.MainController;
 import ch3_complexBV.CommandPattern.V2.receivers.Tank;
 import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
@@ -32,7 +26,6 @@ public class Main {
         
         // Invoker
         MainController controller = new MainController();
-<<<<<<< HEAD
         // better do this way. -2026-01-12 Needs to change it.
         Command[] commands = {new MoveForward(tank), new MoveBackward(tank), new Connect(telecom), new Disconnect(telecom)};
         boolean isRunning = true;
@@ -41,35 +34,14 @@ public class Main {
             // Interactions
             System.out.println("(1) setup key (2) Undo (3) Redo (letter) ur choice: ");
             Scanner scanner = new Scanner(System.in);
-=======
-        
-        // Commands
-        Command[] commands = {
-            new moveForward(tank), 
-            new moveBackward(tank), 
-            new Connect(telecom), 
-            new Disconnect(telecom),
-            new ResetMainControlKeyboard(controller)
-        };
-
-        while(true) {
-            controller.printAllKeys();
-            
-            System.out.print("(1) 快捷鍵設置 (2) Undo (3) Redo (字母) 按下按鍵: ");
->>>>>>> 63b74ea3c5037799bcae8093bee6fc0d9079539e
             String input = scanner.nextLine();
             
             if (input.equals("1")) {
                 System.out.print("設置巨集指令 (y/n)：");
                 String yn = scanner.nextLine();
                 if (!yn.equals("y") && !yn.equals("n")) {
-<<<<<<< HEAD
                     System.out.println("Illegal");
                     return; 
-=======
-                    System.out.println("Illigal");
-                    continue; 
->>>>>>> 63b74ea3c5037799bcae8093bee6fc0d9079539e
                 }
                 if (yn.equals("y")) { // MacroCommand
                     System.out.print("Key: ");

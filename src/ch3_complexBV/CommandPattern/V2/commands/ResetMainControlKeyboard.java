@@ -22,7 +22,6 @@ public class ResetMainControlKeyboard implements Command {
 
     @Override
     public void undo() {
-        // Reset 操作通常不需要 undo，因為無法恢復之前的快捷鍵設置
-        // 但為了符合介面，我們提供一個空的實作
+        // 無法恢復之前的快捷鍵設置, 空的實作
     }
 }
