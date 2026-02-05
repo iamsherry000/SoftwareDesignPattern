@@ -2,11 +2,11 @@ package ch3_complexBV.CommandPattern.V2.commands;
 
 import ch3_complexBV.CommandPattern.V2.invoker.MainController;
 
-public class ResetMainControlKeyboard implements Command {
+public class ResetMainControlCommand implements Command {
     private MainController controller;
-    private String commandName = "ResetMainControlKeyboard";
+    private String commandName = "ResetMainControlCommand";
 
-    public ResetMainControlKeyboard(MainController controller) {
+    public ResetMainControlCommand(MainController controller) {
         this.controller = controller;
     }
 

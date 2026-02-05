@@ -3,16 +3,16 @@ package ch3_complexBV.CommandPattern.V2;
 import ch3_complexBV.CommandPattern.V2.commands.Command;
 import ch3_complexBV.CommandPattern.V2.commands.Connect;
 import ch3_complexBV.CommandPattern.V2.commands.Disconnect;
+import ch3_complexBV.CommandPattern.V2.commands.MacroCommand;
 import ch3_complexBV.CommandPattern.V2.commands.MoveBackward;
 import ch3_complexBV.CommandPattern.V2.commands.MoveForward;
 import ch3_complexBV.CommandPattern.V2.invoker.MainController;
 import ch3_complexBV.CommandPattern.V2.receivers.Tank;
 import ch3_complexBV.CommandPattern.V2.receivers.Telecom;
-import ch3_complexBV.CommandPattern.V2.commands.MacroCommand;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -99,7 +99,7 @@ public class Main {
         System.out.println("(1) MoveTankBackward");
         System.out.println("(2) ConnectTelecom");
         System.out.println("(3) DisconnectTelecom");
-        System.out.println("(4) ResetMainControlKeyboard");
+        System.out.println("(4) ResetMainControlCommand");
     }
 }
 
