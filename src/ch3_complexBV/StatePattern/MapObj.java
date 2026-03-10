@@ -1,4 +1,4 @@
-package ch3_complexBV.StatePattern.map.mapObjects;
+package ch3_complexBV.StatePattern;
 
 public abstract class MapObj {
     private final char symbol;

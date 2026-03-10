@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:\\\\Users\\\\Sherry\\\\Desktop\\\\Github\\\\SoftwareDesignPattern\" && echo \"F\nW\nW\nF\nF\" | java -cp out ch3_complexBV.StatePattern.Main 2>&1 | head -80)",
+      "Bash(ls \"C:\\\\Users\\\\Sherry\\\\Desktop\\\\Github\\\\SoftwareDesignPattern\" && find \"C:\\\\Users\\\\Sherry\\\\Desktop\\\\Github\\\\SoftwareDesignPattern\" -name \"*.xml\" -o -name \"*.gradle\" -o -name \"*.iml\" 2>/dev/null | head -20)",
+      "Bash(CURSOR_BIN=\"C:\\\\Users\\\\Sherry\\\\AppData\\\\Roaming\\\\Cursor\\\\User\\\\workspaceStorage\\\\81d8213d84ee057975545a600b5cd62f\\\\redhat.java\\\\jdt_ws\\\\SoftwareDesignPattern_42e376d9\\\\bin\" && javac -encoding UTF-8 -d \"$CURSOR_BIN\" \"C:\\\\Users\\\\Sherry\\\\Desktop\\\\Github\\\\SoftwareDesignPattern\\\\src\\\\ch3_complexBV\\\\StatePattern\\\\Game.java\" 2>&1)",
+      "Bash(CURSOR_BIN=\"C:\\\\Users\\\\Sherry\\\\AppData\\\\Roaming\\\\Cursor\\\\User\\\\workspaceStorage\\\\81d8213d84ee057975545a600b5cd62f\\\\redhat.java\\\\jdt_ws\\\\SoftwareDesignPattern_42e376d9\\\\bin\" && javac -encoding UTF-8 -cp \"$CURSOR_BIN\" -d \"$CURSOR_BIN\" \"C:\\\\Users\\\\Sherry\\\\Desktop\\\\Github\\\\SoftwareDesignPattern\\\\src\\\\ch3_complexBV\\\\StatePattern\\\\Game.java\" 2>&1)"
+    ]
+  }
+}
