@@ -1,0 +1,219 @@
+diagram_type: "OOA"
+# Source: OOA_v2.png / gym5.asta (EntityStore 二進位模型)
+# 備註：屬性型別與方法簽名若在模型中未明確記載，以 requirement.md 推論並標註 (inferred)
+
+classes:
+  - name: "Role"
+    attributes:
+      - { name: "name",     type: "String", visibility: "-" }
+      - { name: "hp",       type: "int",    visibility: "-" }
+      - { name: "mp",       type: "int",    visibility: "-" }
+      - { name: "strength", type: "int",    visibility: "-" }
+      - { name: "state",    type: "State",  visibility: "-" }
+      - { name: "isAlive",  type: "boolean",visibility: "-" }
+      - { name: "hasMoved", type: "boolean",visibility: "-" }
+    methods:
+      - { name: "action",   return_type: "void", visibility: "+" }
+
+  - name: "Troop"
+    attributes:
+      - { name: "roles", type: "List<Role>", visibility: "-" }
+    methods:
+      - { name: "isAnnihilate", return_type: "boolean", visibility: "+" }
+
+  - name: "Player"
+    stereotype: "abstract"
+    methods:
+      - { name: "choose_action", return_type: "Skill",      visibility: "+" }
+      - { name: "choose_target", return_type: "List<Role>", visibility: "+" }
+
+  - name: "HumanPlayer"
+    attributes: []
+    methods: []
+
+  - name: "AIPlayer"
+    attributes:
+      - { name: "seed", type: "int", visibility: "-" }
+    methods:
+      - { name: "choose_action", return_type: "Skill",      visibility: "+" }
+      - { name: "choose_target", return_type: "List<Role>", visibility: "+" }
+
+  # ---------------- Skills (11 個) ----------------
+  - name: "Skill"
+    stereotype: "abstract"
+    attributes:
+      - { name: "mp_cost",       type: "int", visibility: "-" }
+      - { name: "damage_hp",     type: "int", visibility: "-" }
+      - { name: "target_amount", type: "int", visibility: "-" }
+    methods:
+      - { name: "execute", parameters: "actor: Role, targets: List<Role>", return_type: "void", visibility: "+" }
+
+  - name: "BasicAttack"    # 普通攻擊
+  - name: "Fireball"       # 火球 — 群體 50
+  - name: "Waterball"      # 水球 — 單體 120
+  - name: "Poison"         # 下毒 — 賦予 PoisonedState 3 回合
+  - name: "Summon"         # 召喚 — 召喚史萊姆
+  - name: "SelfExplosion"  # 自爆 — 自殺 + 全場 150
+  - name: "Cheerup"        # 鼓舞 — 3 友軍 CheerupState 3 回合
+  - name: "Curse"          # 詛咒 — MP100，受咒者死時施咒者 +受咒者MP
+  - name: "OnePunch"       # 一拳 — MP180，依目標狀態不同效果
+  - name: "SelfHealing"    # 自我療癒 — 自己 +150 HP
+  - name: "Petrochemical"  # 石化 — 賦予 PetrochemicalState 3 回合
+
+  # ---------------- States ----------------
+  - name: "State"
+    stereotype: "abstract"
+    attributes:
+      - { name: "remaining_round", type: "int", visibility: "-" }
+    methods:
+      - { name: "before_action", return_type: "void", visibility: "+" }   # 步驟 (E) 前置
+      - { name: "handle",        return_type: "void", visibility: "+" }   # 狀態行為
+      - { name: "next",          return_type: "State",visibility: "+" }   # 轉移
+
+  - name: "NormalState"
+  - name: "PoisonedState"          # 每回合 (E) 扣血；(P) 印出為扣除中毒傷害前
+  - name: "PetrochemicalState"     # (E) 時略過 S1、S2、S3，本回合無法行動
+  - name: "CheerupState"           # 每次造成傷害時每位被害者 +50 加成傷害
+
+interfaces: []
+
+relationships:
+  - { type: "generalization", from: "HumanPlayer",      to: "Player" }
+  - { type: "generalization", from: "AIPlayer",         to: "Player" }
+
+  - { type: "generalization", from: "BasicAttack",      to: "Skill" }
+  - { type: "generalization", from: "Fireball",         to: "Skill" }
+  - { type: "generalization", from: "Waterball",        to: "Skill" }
+  - { type: "generalization", from: "Poison",           to: "Skill" }
+  - { type: "generalization", from: "Summon",           to: "Skill" }
+  - { type: "generalization", from: "SelfExplosion",    to: "Skill" }
+  - { type: "generalization", from: "Cheerup",          to: "Skill" }
+  - { type: "generalization", from: "Curse",            to: "Skill" }
+  - { type: "generalization", from: "OnePunch",         to: "Skill" }
+  - { type: "generalization", from: "SelfHealing",      to: "Skill" }
+  - { type: "generalization", from: "Petrochemical",    to: "Skill" }
+
+  - { type: "generalization", from: "NormalState",         to: "State" }
+  - { type: "generalization", from: "PoisonedState",       to: "State" }
+  - { type: "generalization", from: "PetrochemicalState",  to: "State" }
+  - { type: "generalization", from: "CheerupState",        to: "State" }
+
+  - { type: "composition", from: "Troop", to: "Role", multiplicity_to: "1..*" }
+  - { type: "association", from: "Role",  to: "Skill", label: "Skills", multiplicity_to: "*" }
+  - { type: "association", from: "Role",  to: "State", label: "state",  multiplicity_to: "1" }
+  - { type: "association", from: "Player",to: "Role",  label: "操控",    multiplicity_to: "1" }
+
+forces:
+  - description: "多個狀態 (if-else)，行為隨狀態改變"
+    from: "Role"
+    to: "State"
+    color: "red"
+  - description: "比對當前目標角色狀態，執行不同行為 (OnePunch 依目標狀態有 4 種效果)"
+    from: "OnePunch"
+    to: "State"
+    color: "red"
+  - description: "有多項技能都能「改變角色三回合內的狀態」(Poison / Petrochemical / Cheerup)"
+    from: "Skill"
+    to: "State"
+    color: "red"
+  - description: "未來會擴充 AI 實作行為 (可抽換)"
+    from: "AIPlayer"
+    to: "Player"
+    color: "red"
+  - description: "存在多個響應行為 — 當史萊姆死亡時且召喚者仍活著，召喚者 +30 HP；受詛咒者死亡時施咒者 +受咒者剩餘 MP"
+    from: "Role"
+    to: "Role"
+    color: "red"
+
+resolved_forces: []
+
+notes:
+  - attached_to: "Role"
+    color: "pink"
+    content: |
+      角色 = <名稱> <HP> <MP> <STR> <技能-1> <技能-2> ... <技能-K>
+      T1 = 己方, T2 = 敵對；英雄 h = u1,1 由玩家操控，其他 AI 自動控制。
+
+  - attached_to: "Troop"
+    color: "pink"
+    content: |
+      isAnnihilate() == true 即該軍隊被殲滅；
+      若英雄 h 死亡 或 任一軍隊被殲滅，戰鬥結束。
+
+  - attached_to: "AIPlayer"
+    color: "pink"
+    content: |
+      決策：每位 AI 有 seed (初始 = 0)，每次決策後 seed += 1。
+      choose_action()：選 seed % 行動數量。
+      choose_target()：根據 seed、候選清單 n 與目標數 s 做選擇。
+      例：seed=2，候選 (A,B,C)，選 2 個 → (C, A)，選完 seed=3。
+
+  - attached_to: "Skill"
+    color: "pink"
+    content: |
+      回合流程步驟：
+      (P) 印出狀態列 → (E) 結算狀態效果 → (S1) 選擇行動 → (S2) 選擇目標 → (S3) 執行行動。
+
+  - attached_to: "PetrochemicalState"
+    color: "pink"
+    content: |
+      在步驟 (E) 結算狀態效果時，此角色本回合無法行動，S1、S2、S3 將被略過。
+
+  - attached_to: "PoisonedState"
+    color: "pink"
+    content: |
+      在步驟 (E) 結算狀態效果；
+      注意：步驟 (P) 印出的 HP 為「扣除中毒傷害前」的值。
+
+  - attached_to: "CheerupState"
+    color: "pink"
+    content: |
+      此角色在執行每一個能造成傷害的行動中，
+      對於每一位被傷害者都額外創造 50 滴 HP 的加成傷害。
+
+  - attached_to: "Summon"
+    color: "pink"
+    content: |
+      召喚一位史萊姆 (Slime)：100 HP / 0 MP / 50 STR，無技能，初始 NormalState；
+      加入行動角色所屬軍隊尾端，本回合即可行動；
+      當史萊姆死亡且召喚者仍活著 → 召喚者 +30 HP。
+
+  - attached_to: "Curse"
+    color: "pink"
+    content: |
+      MP 100；目標 1 位敵軍。
+      受詛咒者死亡時且施咒者仍活著 → 施咒者 HP += 受咒者剩餘 MP。
+      同一施咒者多次詛咒不疊加；不同施咒者各自獨立結算。
+
+  - attached_to: "OnePunch"
+    color: "pink"
+    content: |
+      MP 180；目標 1 位敵軍；依目標當前狀態，從上往下取第一個符合：
+      1. 目標 HP < X → 直接 300 傷害
+      2. 目標 = Poisoned 或 Petrochemical → 連續 3 次 80 傷害 (中途若死亡即停)
+      3. 目標 = Cheerup → 100 傷害，並將目標狀態恢復為 Normal
+      4. 目標 = Normal → 100 傷害
+
+  - attached_to: "SelfExplosion"
+    color: "pink"
+    content: |
+      目標：戰場上所有仍存活的角色；
+      行動角色自殺 (HP 歸零)，接著對所有仍存活角色造成 150 點傷害。
+
+  - attached_to: "Fireball"
+    color: "pink"
+    content: "火球：目標 = 所有敵軍；對所有目標造成 50 點傷害。"
+
+  - attached_to: "Waterball"
+    color: "pink"
+    content: "水球：目標 = 1 位敵軍；造成 120 點傷害。"
+
+  - attached_to: "SelfHealing"
+    color: "pink"
+    content: "自我治療：目標 = 自己；增加自己 150 HP。"
+
+  - attached_to: "BasicAttack"
+    color: "pink"
+    content: "普通攻擊：目標 = 1 位敵軍；傷害值 = 行動角色的 STR。"
+
+patterns: []

@@ -7,7 +7,14 @@
       "Bash(CURSOR_BIN=\"C:\\\\Users\\\\Sherry\\\\AppData\\\\Roaming\\\\Cursor\\\\User\\\\workspaceStorage\\\\81d8213d84ee057975545a600b5cd62f\\\\redhat.java\\\\jdt_ws\\\\SoftwareDesignPattern_42e376d9\\\\bin\" && javac -encoding UTF-8 -cp \"$CURSOR_BIN\" -d \"$CURSOR_BIN\" \"C:\\\\Users\\\\Sherry\\\\Desktop\\\\Github\\\\SoftwareDesignPattern\\\\src\\\\ch3_complexBV\\\\StatePattern\\\\Game.java\" 2>&1)",
       "Bash(V1=\"C:/Users/Sherry/Desktop/Github/SoftwareDesignPattern/src/ch3_complexBV/StatePattern/v1\"\n\nfind \"$V1\" -name \"*.java\" | while read f; do\n  sed -i \\\\\n    -e 's/package ch3_complexBV\\\\.StatePattern\\\\.states;/package ch3_complexBV.StatePattern.v1.states;/' \\\\\n    -e 's/package ch3_complexBV\\\\.StatePattern\\\\.treasures;/package ch3_complexBV.StatePattern.v1.treasures;/' \\\\\n    -e 's/package ch3_complexBV\\\\.StatePattern;/package ch3_complexBV.StatePattern.v1;/' \\\\\n    -e 's/import ch3_complexBV\\\\.StatePattern\\\\.states\\\\./import ch3_complexBV.StatePattern.v1.states./g' \\\\\n    -e 's/import ch3_complexBV\\\\.StatePattern\\\\.treasures\\\\./import ch3_complexBV.StatePattern.v1.treasures./g' \\\\\n    -e 's/import ch3_complexBV\\\\.StatePattern\\\\.\\\\*/import ch3_complexBV.StatePattern.v1.*/g' \\\\\n    \"$f\"\ndone\necho \"Done\")",
       "Bash(powershell -ExecutionPolicy Bypass -File /tmp/fix_imports.ps1)",
-      "Bash(python3 -c \"\nimport os, glob\nbase = 'C:/Users/Sherry/Desktop/Github/SoftwareDesignPattern/src/ch3_complexBV/StatePattern/v1'\nfor f in glob.glob\\(base + '/**/*.java', recursive=True\\):\n    with open\\(f, 'rb'\\) as fh:\n        data = fh.read\\(\\)\n    if data.startswith\\(b'\\\\xef\\\\xbb\\\\xbf'\\):\n        with open\\(f, 'wb'\\) as fh:\n            fh.write\\(data[3:]\\)\n        print\\('Fixed BOM:', os.path.basename\\(f\\)\\)\nprint\\('Done'\\)\n\")"
+      "Bash(python3 -c \"\nimport os, glob\nbase = 'C:/Users/Sherry/Desktop/Github/SoftwareDesignPattern/src/ch3_complexBV/StatePattern/v1'\nfor f in glob.glob\\(base + '/**/*.java', recursive=True\\):\n    with open\\(f, 'rb'\\) as fh:\n        data = fh.read\\(\\)\n    if data.startswith\\(b'\\\\xef\\\\xbb\\\\xbf'\\):\n        with open\\(f, 'wb'\\) as fh:\n            fh.write\\(data[3:]\\)\n        print\\('Fixed BOM:', os.path.basename\\(f\\)\\)\nprint\\('Done'\\)\n\")",
+      "Bash(ls src/ch3_complexBV/Gym5_RPG/src/*.java src/ch3_complexBV/Gym5_RPG/src/**/*.java)",
+      "Bash(java -cp out Main)",
+      "Bash(java -cp out ch3_complexBV.Gym5_RPG.src.Main)",
+      "Read(//tmp/**)",
+      "Bash(wc:*)",
+      "Bash(grep -h \"選擇 1 位目標\" testcases/*.out)",
+      "Bash(grep -h \"選擇.*位目標\" testcases/*.out)"
     ]
   }
 }

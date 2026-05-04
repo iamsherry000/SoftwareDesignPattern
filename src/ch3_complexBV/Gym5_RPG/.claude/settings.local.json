@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(unzip -l gym5.asta)",
+      "Bash(java -Dfile.encoding=UTF-8 ch3_complexBV.Gym5_RPG.src.Main)",
+      "Read(//c/Users/Sherry/Desktop/Github/SoftwareDesignPattern/**)",
+      "Bash(mkdir -p src/ch3_complexBV/Gym5_RPG/out)",
+      "Bash(javac -d src/ch3_complexBV/Gym5_RPG/out @/tmp/srcs.txt)",
+      "Bash(java -cp src/ch3_complexBV/Gym5_RPG/out ch3_complexBV.Gym5_RPG.src.Main)",
+      "Bash(xxd)"
+    ]
+  }
+}

@@ -1,0 +1,233 @@
+diagram_type: "OOD"
+# Source: OOD.png / gym5.asta (EntityStore 二進位模型)
+# 設計模式：Strategy / State / Observer / Chain of Responsibility (責任鏈)
+
+classes:
+  # ---------------- Context / Domain ----------------
+  - name: "Role"
+    attributes:
+      - { name: "name",     type: "String",        visibility: "-" }
+      - { name: "hp",       type: "int",           visibility: "-" }
+      - { name: "mp",       type: "int",           visibility: "-" }
+      - { name: "strength", type: "int",           visibility: "-" }
+      - { name: "state",    type: "State",         visibility: "-" }   # State Pattern Context
+      - { name: "skills",   type: "List<Skill>",   visibility: "-" }
+      - { name: "isAlive",  type: "boolean",       visibility: "-" }
+      - { name: "hasMoved", type: "boolean",       visibility: "-" }
+      - { name: "observers",type: "List<RoleDeathObserver>", visibility: "-" }
+    methods:
+      - { name: "action",        return_type: "void",   visibility: "+" }
+      - { name: "setState",      parameters: "s: State", return_type: "void", visibility: "+" }
+      - { name: "registerObserver", parameters: "o: RoleDeathObserver", return_type: "void", visibility: "+" }
+      - { name: "notifyDeath",   return_type: "void",   visibility: "+" }
+
+  - name: "Troop"
+    attributes:
+      - { name: "roles", type: "List<Role>", visibility: "-" }
+    methods:
+      - { name: "isAnnihilate", return_type: "boolean", visibility: "+" }
+
+  # ---------------- Strategy Pattern (Player) ----------------
+  - name: "Player"
+    stereotype: "abstract"
+    attributes:
+      - { name: "strategy", type: "PlayStrategy", visibility: "-" }   # Strategy 參照
+    methods:
+      - { name: "choose_action", return_type: "Skill",      visibility: "+" }
+      - { name: "choose_target", return_type: "List<Role>", visibility: "+" }
+
+  - name: "HumanPlayer"
+    methods:
+      - { name: "choose_action", return_type: "Skill",      visibility: "+" }
+      - { name: "choose_target", return_type: "List<Role>", visibility: "+" }
+
+  - name: "AIPlayer"
+    attributes:
+      - { name: "seed",     type: "int",          visibility: "-" }
+      - { name: "strategy", type: "PlayStrategy", visibility: "-" }
+    methods:
+      - { name: "choose_action", return_type: "Skill",      visibility: "+" }
+      - { name: "choose_target", return_type: "List<Role>", visibility: "+" }
+
+  - name: "AiStrategy1"
+    methods:
+      - { name: "decide", parameters: "ai: AIPlayer", return_type: "Action", visibility: "+" }
+
+  - name: "AiStrategy2"
+    methods:
+      - { name: "decide", parameters: "ai: AIPlayer", return_type: "Action", visibility: "+" }
+
+  # ---------------- Skills ----------------
+  - name: "Skill"
+    stereotype: "abstract"
+    attributes:
+      - { name: "mp_cost",       type: "int", visibility: "-" }
+      - { name: "damage_hp",     type: "int", visibility: "-" }
+      - { name: "target_amount", type: "int", visibility: "-" }
+    methods:
+      - { name: "execute", parameters: "actor: Role, targets: List<Role>", return_type: "void", visibility: "+" }
+
+  - name: "BasicAttack"
+  - name: "Fireball"
+  - name: "Waterball"
+  - name: "Poison"
+  - name: "Summon"
+  - name: "SelfExplosion"
+  - name: "Cheerup"
+  - name: "Curse"
+  - name: "SelfHealing"
+  - name: "Petrochemical"
+
+  # ---------------- Chain of Responsibility (OnePunch) ----------------
+  - name: "OnePunch"
+    notes: "依目標 State 有 4 種不同效果 — 套用責任鏈把比對邏輯從 if-else 抽出"
+    methods:
+      - { name: "execute", parameters: "actor: Role, target: Role", return_type: "void", visibility: "+" }
+
+  # ---------------- State Pattern ----------------
+  - name: "State"
+    stereotype: "abstract"
+    attributes:
+      - { name: "remaining_round", type: "int", visibility: "#" }
+    methods:
+      - { name: "before_action", parameters: "role: Role", return_type: "void",  visibility: "+" }
+      - { name: "handle",        parameters: "role: Role", return_type: "void",  visibility: "+" }
+      - { name: "next",          return_type: "State", visibility: "+" }
+
+  - name: "NormalState"
+  - name: "PoisonedState"
+  - name: "PetrochemicalState"
+  - name: "CheerupState"
+
+  # ---------------- Observer Pattern ----------------
+  - name: "SlimeObserver"
+    attributes:
+      - { name: "summoner", type: "Role", visibility: "-" }
+    methods:
+      - { name: "onDeath", parameters: "dead: Role", return_type: "void", visibility: "+" }
+
+  - name: "CurseObserver"
+    attributes:
+      - { name: "curseStarter", type: "Role", visibility: "-" }
+    methods:
+      - { name: "onDeath", parameters: "dead: Role", return_type: "void", visibility: "+" }
+
+interfaces:
+  - name: "PlayStrategy"
+    methods:
+      - { name: "decide", parameters: "ai: AIPlayer", return_type: "Action" }
+
+  - name: "RoleDeathObserver"
+    methods:
+      - { name: "onDeath", parameters: "dead: Role", return_type: "void" }
+
+relationships:
+  # Player strategy
+  - { type: "generalization", from: "HumanPlayer", to: "Player" }
+  - { type: "generalization", from: "AIPlayer",    to: "Player" }
+  - { type: "realization",    from: "AiStrategy1", to: "PlayStrategy" }
+  - { type: "realization",    from: "AiStrategy2", to: "PlayStrategy" }
+  - { type: "association",    from: "AIPlayer",    to: "PlayStrategy", label: "strategy", multiplicity_to: "1" }
+
+  # Skills
+  - { type: "generalization", from: "BasicAttack",   to: "Skill" }
+  - { type: "generalization", from: "Fireball",      to: "Skill" }
+  - { type: "generalization", from: "Waterball",     to: "Skill" }
+  - { type: "generalization", from: "Poison",        to: "Skill" }
+  - { type: "generalization", from: "Summon",        to: "Skill" }
+  - { type: "generalization", from: "SelfExplosion", to: "Skill" }
+  - { type: "generalization", from: "Cheerup",       to: "Skill" }
+  - { type: "generalization", from: "Curse",         to: "Skill" }
+  - { type: "generalization", from: "OnePunch",      to: "Skill" }
+  - { type: "generalization", from: "SelfHealing",   to: "Skill" }
+  - { type: "generalization", from: "Petrochemical", to: "Skill" }
+
+  # State
+  - { type: "generalization", from: "NormalState",        to: "State" }
+  - { type: "generalization", from: "PoisonedState",      to: "State" }
+  - { type: "generalization", from: "PetrochemicalState", to: "State" }
+  - { type: "generalization", from: "CheerupState",       to: "State" }
+  - { type: "association",    from: "Role", to: "State", label: "state", multiplicity_to: "1" }
+
+  # Observer
+  - { type: "realization", from: "SlimeObserver", to: "RoleDeathObserver" }
+  - { type: "realization", from: "CurseObserver", to: "RoleDeathObserver" }
+  - { type: "association", from: "Role", to: "RoleDeathObserver", label: "observers", multiplicity_to: "*" }
+  - { type: "dependency",  from: "Summon", to: "SlimeObserver", label: "register" }
+  - { type: "dependency",  from: "Curse",  to: "CurseObserver", label: "register" }
+
+  # Troop / Role
+  - { type: "composition", from: "Troop",  to: "Role",  multiplicity_to: "1..*" }
+  - { type: "association", from: "Role",   to: "Skill", label: "skills", multiplicity_to: "*" }
+  - { type: "association", from: "Player", to: "Role",  label: "操控",    multiplicity_to: "1" }
+
+forces: []
+
+resolved_forces:
+  - description: "策略模式 — 未來可擴充 / 抽換 AI 實作行為"
+    from: "AIPlayer"
+    to: "PlayStrategy"
+    color: "green"
+  - description: "狀態模式 — 多個狀態 (if-else)，行為隨狀態改變"
+    from: "Role"
+    to: "State"
+    color: "green"
+  - description: "觀察者模式 — 存在多個響應行為 (史萊姆死/受咒者死觸發不同反應)"
+    from: "Role"
+    to: "RoleDeathObserver"
+    color: "green"
+  - description: "責任鏈 — 比對當前目標角色狀態，執行不同行為 (OnePunch)"
+    from: "OnePunch"
+    to: "State"
+    color: "green"
+
+notes:
+  - attached_to: "PlayStrategy"
+    color: "pink"
+    content: "策略模式：未來會擴充 AI 實作行為 (可抽換) (可直接刪除)"
+
+  - attached_to: "State"
+    color: "pink"
+    content: "狀態模式：多個狀態 (if-else)，行為隨狀態改變"
+
+  - attached_to: "RoleDeathObserver"
+    color: "pink"
+    content: |
+      觀察者模式：存在多個響應行為。
+      - 當史萊姆死亡時且召喚者仍活著，召喚者 +30 HP。
+      - 受詛咒者死亡時且施咒者仍活著，施咒者 HP += 受咒者剩餘 MP。
+
+  - attached_to: "OnePunch"
+    color: "pink"
+    content: "責任鏈：比對當前目標角色狀態，執行不同行為"
+
+  - attached_to: "PetrochemicalState"
+    color: "pink"
+    content: "在步驟 (E) 結算狀態效果時，此角色本回合無法行動，S1、S2、S3 將被略過。"
+
+  - attached_to: "PoisonedState"
+    color: "pink"
+    content: |
+      在步驟 (E) 結算狀態效果；
+      注意：步驟 (P) 印出的 HP 為扣除中毒傷害前的值。
+
+  - attached_to: "CheerupState"
+    color: "pink"
+    content: "此角色在執行每一個能造成傷害的行動中，對於每一位被傷害者都額外創造 50 滴 HP 的加成傷害。"
+
+  - attached_to: "AIPlayer"
+    color: "pink"
+    content: |
+      決策：seed 初始 = 0，每次決策後 seed += 1。
+      choose_action()：選 seed % 行動數量。
+      choose_target()：依 seed、候選 n、目標 s 決定。
+
+patterns:
+  - name: "Strategy"
+    participants: ["Player", "AIPlayer", "PlayStrategy", "AiStrategy1", "AiStrategy2"]
+  - name: "State"
+    participants: ["Role", "State", "NormalState", "PoisonedState", "PetrochemicalState", "CheerupState"]
+  - name: "Observer"
+    participants: ["Role", "RoleDeathObserver", "SlimeObserver", "CurseObserver"]
+  - name: "Chain of Responsibility"
+    participants: ["OnePunch", "State"]
