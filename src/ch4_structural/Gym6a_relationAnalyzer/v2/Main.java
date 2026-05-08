@@ -1,4 +1,4 @@
-package ch4_structural.relationAnalyzer.v2;
+package ch4_structural.Gym6a_relationAnalyzer.v2;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
 
         String scriptPath = args.length > 0
                 ? args[0]
-                : "src/ch4_structural/Gym4a_relationAnalyzer/v2/script.txt";
+                : "src/ch4_structural/Gym6a_relationAnalyzer/v2/script.txt";
 
         client.run(scriptPath, "A", "B");
         client.run(scriptPath, "A", "K");

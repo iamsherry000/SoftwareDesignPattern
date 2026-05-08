@@ -1,4 +1,4 @@
-package ch4_structural.relationAnalyzer.v2;
+package ch4_structural.Gym6a_relationAnalyzer.v2;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

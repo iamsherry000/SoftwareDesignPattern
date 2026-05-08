@@ -1,4 +1,4 @@
-package ch4_structural.relationAnalyzer.v1;
+package ch4_structural.Gym6a_relationAnalyzer.v1;
 
 import java.util.HashMap;
 import java.util.HashSet;

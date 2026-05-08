@@ -1,7 +1,7 @@
-package ch4_structural.relationAnalyzer.v1;
+package ch4_structural.Gym6a_relationAnalyzer.v2;
 
 public interface RelationshipAnalyzer {
-    void parse(String script);
+    RelationshipGraph parse(String script);
 
     String[] getMutualFriends(String name1, String name2);
 }
