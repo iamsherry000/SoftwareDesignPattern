@@ -1,0 +1,93 @@
+[
+    {
+        "id": "A123456789",
+        "name": "Michael",
+        "gender": "M",
+        "age": 35,
+        "height": 172.5,
+        "weight": 68.2,
+        "cases": [
+            {   
+                "patientId": "A123456789",
+                "caseTime": "2025-12-30",
+                "prescription": {
+                    "name": "清冠一號",
+                    "potentialDisease": "COVID-19",
+                    "medicines": [
+                        "清冠一號"
+                    ],
+                    "usage": "將相關藥材裝入茶包裡，使用500 mL 溫、熱水沖泡悶煮1~3 分鐘後即可飲用。"
+                }
+            }
+        ]
+    },
+    {
+        "id": "B987654321",
+        "name": "Alice",
+        "gender": "F",
+        "age": 18,
+        "height": 160.0,
+        "weight": 52.4,
+        "cases": [
+            {
+                "patientId": "B987654321",
+                "caseTime": "2026-01-01",
+                "prescription": {
+                    "name": "青春抑制劑",
+                    "potentialDisease": "Attractive",
+                    "medicines": [
+                        "假鬢角",
+                        "臭味"
+                    ],
+                    "usage": "把假鬢角黏在臉的兩側，讓自己異性緣差一點，自然就不會有人想妳了。"
+                }
+            },
+            {
+                "patientId": "B987654321",
+                "caseTime": "2026-01-05",
+                "prescription": {
+                    "name": "清冠一號",
+                    "potentialDisease": "COVID-19",
+                    "medicines": [
+                        "清冠一號"
+                    ],
+                    "usage": "將相關藥材裝入茶包裡，使用500 mL 溫、熱水沖泡悶煮1~3 分鐘後即可飲用。"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Z456789123",
+        "name": "Thomas",
+        "gender": "M",
+        "age": 62,
+        "height": 168.3,
+        "weight": 75.0,
+        "cases": [
+            {
+                "patientId": "Z456789123",
+                "caseTime": "2026-01-18",
+                "prescription": {
+                    "name": "打呼抑制劑",
+                    "potentialDisease": "SleepApneaSyndrome",
+                    "medicines": [
+                        "一捲膠帶"
+                    ],
+                    "usage": "睡覺時，撕下兩塊膠帶，將兩塊膠帶交錯黏在關閉的嘴巴上，就不會打呼了。"
+                }
+            },
+            {
+                "patientId": "Z456789123",
+                "caseTime": "2026-01-10",
+                "prescription": {
+                    "name": "清冠一號",
+                    "potentialDisease": "COVID-19",
+                    "medicines": [
+                        "清冠一號"
+                    ],
+                    "usage": "將相關藥材裝入茶包裡，使用500 mL 溫、熱水沖泡悶煮1~3 分鐘後即可飲用。"
+                }
+            }
+        ]
+    }
+]

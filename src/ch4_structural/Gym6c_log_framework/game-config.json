@@ -1,0 +1,26 @@
+{
+  "loggers": {
+    "levelThreshold": "DEBUG",
+    "exporter": { "type": "console" },
+    "layout": "standard",
+    "app.game": {
+      "levelThreshold": "INFO",
+      "exporter": {
+        "type": "composite",
+        "children": [
+          { "type": "console" },
+          {
+            "type": "composite",
+            "children": [
+              { "type": "file", "fileName": "src/ch4_structural/Gym6c_log_framework/result/game.log" },
+              { "type": "file", "fileName": "src/ch4_structural/Gym6c_log_framework/result/game.backup.log" }
+            ]
+          }
+        ]
+      },
+      "app.game.ai": {
+        "levelThreshold": "TRACE"
+      }
+    }
+  }
+}

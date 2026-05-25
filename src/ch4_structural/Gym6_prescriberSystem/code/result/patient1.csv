@@ -1,0 +1,2 @@
+patientId,caseTime,symptoms,prescriptionName,potentialDisease,medicines,usage
+"A123456789","2026-05-24T13:16:08.888764","SNEEZE;HEADACHE;COUGH","清冠一號","新冠肺炎（COVID-19）","清冠一號","將相關藥材裝入茶包裡，使用 500 mL 溫、熱水沖泡悶煮 1~3 分鐘後即可飲用。"
